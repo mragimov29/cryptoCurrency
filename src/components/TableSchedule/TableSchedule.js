@@ -1,9 +1,8 @@
-import { Chart } from "chart.js";
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
 export default function TableSchedule({ price, id, date }) {
-  // const [dates, setDates] = useEffect([]);
+  const [dates, setDates] = useState([]);
 
   useEffect(() => {
     let dates_ = [];
@@ -13,10 +12,10 @@ export default function TableSchedule({ price, id, date }) {
       let arrDate = new Date(
         `${date.getDay()}.${date.getMonth()} ${date.getHours()}:${date.getMinutes()}`
       );
-      dates_.unshift(arrDate);
+      dates_.push(i);
     }
     console.log(dates_);
-  });
+  }, [dates]);
 
   // const data = {
   //   label: dates,
