@@ -1,9 +1,11 @@
 import React from "react";
-import Header from "../components/Header/Header";
+import CurrencyTable from "../components/CurrencyTable/CurrencyTable";
 import "./MainPage.css";
 
 export default function MainPage() {
   return (
-      <Header />
+    <div className="main-page">
+      <CurrencyTable />
+    </div>
   );
 }
