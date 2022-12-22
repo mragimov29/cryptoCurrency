@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
+import TableSchedule from "../TableSchedule/TableSchedule";
 import "./CurrencyTable.css";
 
 export default function CurrencyTable() {
   const [data, setData] = useState(null);
   const [oneTime, setOneTime] = useState(true);
+  const [dates, setDates] = useState([]);
 
   const getData = async () => {
     let response = await fetch(
@@ -156,18 +158,18 @@ export default function CurrencyTable() {
         );
       }
     } else if (table === 7) {
-        if (th[table].innerHTML === "Mkt Cap ˅") {
-          th[table].innerHTML = "Mkt Cap ˄";
-          data.sort((a, b) =>
-            Number(a.mkt_cap.slice(1)) > Number(b.mkt_cap.slice(1)) ? -1 : 1
-          );
-        } else {
-          th[table].innerHTML = "Mkt Cap ˅";
-          data.sort((a, b) =>
-            Number(a.mkt_cap.slice(1)) > Number(b.mkt_cap.slice(1)) ? 1 : -1
-          );
-        }
+      if (th[table].innerHTML === "Mkt Cap ˅") {
+        th[table].innerHTML = "Mkt Cap ˄";
+        data.sort((a, b) =>
+          Number(a.mkt_cap.slice(1)) > Number(b.mkt_cap.slice(1)) ? -1 : 1
+        );
+      } else {
+        th[table].innerHTML = "Mkt Cap ˅";
+        data.sort((a, b) =>
+          Number(a.mkt_cap.slice(1)) > Number(b.mkt_cap.slice(1)) ? 1 : -1
+        );
       }
+    }
 
     let j = 0;
     for (let i = 0; i < td.length; i += 9) {
@@ -298,7 +300,15 @@ export default function CurrencyTable() {
                 </td>
                 <td>${item.total_volume}</td>
                 <td>${item.market_cap}</td>
-                <td>{""}</td>
+                <td>
+                  <div className="td-schedule">
+                    <TableSchedule
+                      price={item.sparkline_in_7d}
+                      date={item.last_updated}
+                      id={item.id}
+                    />
+                  </div>
+                </td>
               </tr>
             );
           })}
