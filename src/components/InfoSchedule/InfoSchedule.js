@@ -36,9 +36,6 @@ export default function InfoSchedule({ price, date }) {
 
       for (let i = 0; i < 168; i++) {
         date1.setHours(date1.getHours() - 1);
-        // let arrDate = new Date(
-        //   `${date.getDay()}.${date.getMonth()} ${date.getHours()}:${date.getMinutes()}`
-        // );
         dates.unshift(date1);
       }
       console.log(dates.length);
@@ -48,39 +45,49 @@ export default function InfoSchedule({ price, date }) {
           {
             data: price.price,
             fill: false,
-            pointBorderColor: 'transparent',
-            pointBackgroundColor: 'transparent',
-            backgroundColor: 'rgb(25, 118, 210)', // цвет точек
-            borderColor: 'rgb(25, 118, 210)',
+            backgroundColor: "rgb(25, 118, 212)",
+            borderColor: "rgb(25, 118, 210)",
           },
         ],
       });
-      
+    
       setOptions({
-        plugins: {
-          legend: {
-            display: false,
+        legend: {
+          display: false,
+        },
+        maintainAspectRatio: false,
+    
+        tooltips: {
+          mode: "index",
+          intersect: false,
+          caretSize: 3,
+          borderWidth: 1,
+          displayColors: false,
+    
+          callbacks: {
+            title() {
+              return "";
+            },
           },
         },
         elements: {
           point: {
-            radius: 10,
-            hoverRadius: 10,
-            hitRadius: 10
+            radius: 3,
+            hoverRadius: 7,
+            hitRadius: 7
           },
         },
-        maintainAspectRatio: false,
         scales: {
-          x: {
-            ticks: {
-              display: false,
+              x: {
+                ticks: {
+                  display: false,
+                },
+                grid: {
+                  drawBorder: false,
+                  display: false,
+                },
+              },
             },
-            grid: {
-              drawBorder: false,
-              display: false,
-            },
-          },
-        },
       });
     }
   }, []);

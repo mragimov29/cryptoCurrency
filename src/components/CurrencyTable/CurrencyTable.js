@@ -261,8 +261,7 @@ export default function CurrencyTable() {
               <tr>
                 <td className="index">{index + 1}</td>
                 <td className="td-coin">
-                  <Link to={`/${item.id}`
-                }>
+                  <Link to={`/${item.id}`}>
                     <img className="table-image" src={item.image} />
                   </Link>
                   <p>{item.name}</p>

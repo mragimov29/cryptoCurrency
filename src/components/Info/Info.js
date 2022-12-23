@@ -65,19 +65,19 @@ export default function Info() {
 
         <div className="links">
           <h2>Links</h2>
-          <a href="">
+          <a href={data.links.homepage[0]}>
             <button className="info-link-bat">Homepage</button>
           </a>
-          <a href="">
+          <a href={`https://www.facebook.com/${data.links.facebook_username}/`}>
             <button className="info-link-bat">Facebook</button>
           </a>
-          <a href="">
+          <a href={data.links.subreddit_url}>
             <button className="info-link-bat">Reddit</button>
           </a>
-          <a href="">
+          <a href={`https://twitter.com/${data.links.twitter_screen_name}`}>
             <button className="info-link-bat">Twitter</button>
           </a>
-          <a href="">
+          <a href={data.links.repos_url.github[0]}>
             <button className="info-link-bat">GitHub</button>
           </a>
         </div>
