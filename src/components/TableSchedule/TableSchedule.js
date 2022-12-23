@@ -29,6 +29,7 @@ export default function TableSchedule({ price, id, date }) {
 
   let flag = true;
   useEffect(() => {
+    console.log("X");
     if (flag) {
       setDates([]);
       flag = false;
