@@ -40,6 +40,7 @@ th:hover {
   display: flex;
   justify-content: space-between;
   text-align: center;
+  margin-top: 25px;
 }
 
 td {
@@ -56,4 +57,9 @@ td {
 
 .red-td {
   color: red;
+}
+
+.td-schedule {  
+  width: 300px;
+  height: 100px;
 }

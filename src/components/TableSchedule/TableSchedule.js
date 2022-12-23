@@ -1,44 +1,110 @@
 import { useEffect, useState } from "react";
-import { connect } from "react-redux";
 import { Line } from "react-chartjs-2";
-import { createDates } from "../../redux/actions/actions";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-// const mapDispatchToProps = (dispatch) => ({
-//   createDates: (date, price) => dispatch(createDates(date, price)),
-// });
-
-// const mapStateToProps = (state) => {
-//   return {
-//     dates: state.dates,
-//   };
-// };
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
+);
 
 export default function TableSchedule({ price, id, date }) {
   const [dates, setDates] = useState([]);
-  const [flag, setFlag] = useState(true);
+  // const [flag, setFlag] = useState(true);
+  const [data, setData] = useState(null);
+  const [options, setOptions] = useState(null);
 
+  let flag = true;
   useEffect(() => {
-    if(flag) {
+    if (flag) {
+      setDates([]);
+      flag = false;
       const date1 = new Date(date);
 
-      for (let i = 0; i < price.price.length; i++) {
+      for (let i = 0; i < 168; i++) {
         date1.setHours(date1.getHours() - 1);
         // let arrDate = new Date(
         //   `${date.getDay()}.${date.getMonth()} ${date.getHours()}:${date.getMinutes()}`
         // );
         dates.unshift(date1);
       }
-  
-      console.log(id, dates);
-      setFlag(false);
+      console.log(dates.length);
+      setData({
+        labels: dates,
+        datasets: [
+          {
+            data: price.price,
+            fill: false,
+            pointBorderColor: 'transparent',
+            pointBackgroundColor: 'transparent',
+            backgroundColor: 'rgb(255, 255, 255)', // цвет точек
+            borderColor: 'rgb(25, 118, 210)',
+          },
+        ],
+      });
+      setOptions({
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        elements: {
+          point: {
+            radius: 0,
+            hoverRadius: 0,
+            hitRadius: 0
+          },
+        },
+        maintainAspectRatio: false,
+        tooltips: {
+          mode: false,
+          callbacks: {
+            title: function () {},
+            label: function () {},
+          },
+        },
+        scales: {
+          y: {
+            ticks: {
+              display: false,
+              beginAtZero: true,
+            },
+            grid: {
+              drawBorder: false,
+              display: false,
+            },
+          },
+          x: {
+            ticks: {
+              display: false,
+            },
+
+            // to remove the x-axis grid
+            grid: {
+              drawBorder: false,
+              display: false,
+            },
+          },
+        },
+      });
     }
-  });
+  }, []);
 
-  // const data = {
-  //   label: dates,
-  // };
-  return <p></p>;
-  // return <Line data={data} options={options} />;
+  if (data === null && options === null && dates.length === 0)
+    return <>loading...</>;
+  // return <></>;
+  return <Line data={data} options={options} />;
 }
-
-// export default connect(mapStateToProps, mapDispatchToProps)(TableSchedule);

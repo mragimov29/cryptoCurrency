@@ -24,7 +24,7 @@ export default function CurrencyTable() {
         .catch((err) => alert(err));
       setOneTime(false);
     }
-  });
+  }, []);
 
   const sortHandle = (table) => {
     let th = document.querySelectorAll("th");
@@ -251,7 +251,7 @@ export default function CurrencyTable() {
             >
               Mkt Cap ˅
             </th>
-            <th>Last 7 Days ˅</th>
+            <th>Last 7 Days</th>
           </tr>
         </thead>
         <tbody>
@@ -260,7 +260,9 @@ export default function CurrencyTable() {
               <tr>
                 <td className="index">{index + 1}</td>
                 <td className="td-coin">
-                  <img className="table-image" src={item.image} />
+                  <button>
+                    <img className="table-image" src={item.image} />
+                  </button>
                   <p>{item.name}</p>
                   <p className="table-symbol">{item.symbol.toUpperCase()}</p>
                 </td>
