@@ -1,20 +1,21 @@
 import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { Line } from "react-chartjs-2";
+import { createDates } from "../../redux/actions/actions";
 
-export default function TableSchedule({ price, id, date }) {
-  const [dates, setDates] = useState([]);
+const mapDispatchToProps = (dispatch) => ({
+  createDates: (date, price) => dispatch(createDates(date, price)),
+});
 
+const mapStateToProps = (state) => {
+  return {
+    dates: state.dates,
+  };
+};
+
+function TableSchedule({ price, id, date, dates, createDates }) {
   useEffect(() => {
-    let dates_ = [];
-    let date = new Date("2022-12-22T20:02:49Z");
-    for (let i = 0; i < price.length; i++) {
-      date.setHours(date.getHours() - 1);
-      let arrDate = new Date(
-        `${date.getDay()}.${date.getMonth()} ${date.getHours()}:${date.getMinutes()}`
-      );
-      dates_.push(i);
-    }
-    console.log(dates_);
+      createDates(date, price);
   }, [dates]);
 
   // const data = {
@@ -23,3 +24,5 @@ export default function TableSchedule({ price, id, date }) {
   return <p></p>;
   // return <Line data={data} options={options} />;
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(TableSchedule);
