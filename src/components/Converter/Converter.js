@@ -5,6 +5,9 @@ export default function Converter({ symbol, id }) {
   //https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=0
   const [oneTime, setOneTime] = useState(true);
   const [currency, setCurrency] = useState(null);
+  const [first, setFirst] = useState(null);
+  const [second, setSecond] = useState(null);
+  const [selectValue, setSelectValue] = useState('usd');
 
   const getData = async (vs_currency) => {
     let response = await fetch(
@@ -14,8 +17,8 @@ export default function Converter({ symbol, id }) {
     return data;
   };
 
-  const getCurrency = () => {
-    getData('usd')
+  const getCurrency = (value) => {
+    getData(value)
     .then((res) => {
       setCurrency(res.prices[0][1]);
     })
@@ -25,14 +28,27 @@ export default function Converter({ symbol, id }) {
 
   useEffect(() => {
     if (oneTime) {
-        getCurrency();
+        getCurrency(selectValue);
+        console.log(currency)
     }
   }, []);
+
   const firstChange = (e) => {
-    console.log('sss');
-    console.log(e.target.value*currency);
+    setFirst(e.target.value);
+    setSecond((e.target.value*currency).toFixed(2))
   }
 
+  const secondChange = (e) => {
+    setSecond(e.target.value);
+    setFirst((e.target.value/currency).toFixed(2))
+  }
+
+  const selectChange = (e) => {
+    console.log(e.target.value)
+    getCurrency(e.target.value);
+    setSelectValue(e.target.value);
+    setSecond((first*currency).toFixed(2));
+  }
 
   return (
     <div>
@@ -40,21 +56,21 @@ export default function Converter({ symbol, id }) {
       <div className="converter">
         <div className="first">
           <div className="converter-symbol">{symbol}</div>
-          <input onChange={firstChange} type="number"></input>
+          <input value={first} onChange={firstChange} type="number"></input>
         </div>
 
         <div className="second">
-          <select className="custom-dropdown">
-            <option value="USD" selected="selected">
+          <select value={selectValue} onChange={selectChange} className="custom-dropdown">
+            <option value="usd">
               USD
             </option>
-            <option value="EUR">EUR</option>
-            <option value="BTC">BTC</option>
-            <option value="CPP">ETC</option>
-            <option value="CPP">BNB</option>
-            <option value="CPP">BCH</option>
+            <option value="eur">EUR</option>
+            <option value="btc">BTC</option>
+            <option value="eth">ETH</option>
+            <option value="bnb">BNB</option>
+            <option value="bch">BCH</option>
           </select>
-          <input type="number"></input>
+          <input value={second} onChange={secondChange} type="number"></input>
         </div>
       </div>
     </div>
