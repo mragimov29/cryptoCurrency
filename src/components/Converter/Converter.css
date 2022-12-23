@@ -1,0 +1,38 @@
+.converter {
+    border: 1px solid gray;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.custom-dropdown {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+    font-size: 15px;
+}
+
+.converter-symbol {
+    margin-left: 10px;
+}
+
+.first {
+    margin-top: 10px;
+    display: flex;
+}
+
+.first input {
+    margin-left: 23px;
+}
+
+.second {
+    margin-left: -10px;
+}
+
+select {
+    padding: 2px 10px;
+    border-radius: 5px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}

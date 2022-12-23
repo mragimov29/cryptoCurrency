@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import Converter from "../Converter/Converter";
 import InfoSchedule from "../InfoSchedule/InfoSchedule";
 import "./Info.css";
 
@@ -80,6 +81,7 @@ export default function Info() {
           <a href={data.links.repos_url.github[0]}>
             <button className="info-link-bat">GitHub</button>
           </a>
+        <Converter symbol={data.symbol.toUpperCase()}/>
         </div>
       </div>
       <InfoSchedule

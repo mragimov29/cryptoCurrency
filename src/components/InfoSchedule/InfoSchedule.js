@@ -58,7 +58,6 @@ export default function InfoSchedule({ price, date }) {
         maintainAspectRatio: false,
     
         tooltips: {
-          mode: "index",
           intersect: false,
           caretSize: 3,
           borderWidth: 1,
