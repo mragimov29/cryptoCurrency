@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import TableSchedule from "../TableSchedule/TableSchedule";
 import "./CurrencyTable.css";
 
@@ -260,9 +261,10 @@ export default function CurrencyTable() {
               <tr>
                 <td className="index">{index + 1}</td>
                 <td className="td-coin">
-                  <button>
+                  <Link to={`/${item.id}`
+                }>
                     <img className="table-image" src={item.image} />
-                  </button>
+                  </Link>
                   <p>{item.name}</p>
                   <p className="table-symbol">{item.symbol.toUpperCase()}</p>
                 </td>
