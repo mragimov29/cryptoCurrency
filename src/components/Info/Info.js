@@ -81,7 +81,7 @@ export default function Info() {
           <a href={data.links.repos_url.github[0]}>
             <button className="info-link-bat">GitHub</button>
           </a>
-        <Converter symbol={data.symbol.toUpperCase()}/>
+        <Converter symbol={data.symbol.toUpperCase()} id={params.id}/>
         </div>
       </div>
       <InfoSchedule
