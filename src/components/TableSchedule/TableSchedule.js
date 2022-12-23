@@ -41,17 +41,22 @@ export default function TableSchedule({ price, id, date }) {
         // );
         dates.unshift(date1);
       }
-      console.log(dates.length);
+
+      let borderColor = "";
+      if (price.price[0] < price.price[price.price.length - 1])
+        borderColor = "rgb(0,128,0)";
+      else borderColor = "rgb(255,0,0)";
+
       setData({
         labels: dates,
         datasets: [
           {
             data: price.price,
             fill: false,
-            pointBorderColor: 'transparent',
-            pointBackgroundColor: 'transparent',
-            backgroundColor: 'rgb(255, 255, 255)', // цвет точек
-            borderColor: 'rgb(25, 118, 210)',
+            pointBorderColor: "transparent",
+            pointBackgroundColor: "transparent",
+            backgroundColor: "rgb(255, 255, 255)", // цвет точек
+            borderColor: borderColor,
           },
         ],
       });
@@ -65,7 +70,7 @@ export default function TableSchedule({ price, id, date }) {
           point: {
             radius: 0,
             hoverRadius: 0,
-            hitRadius: 0
+            hitRadius: 0,
           },
         },
         maintainAspectRatio: false,
