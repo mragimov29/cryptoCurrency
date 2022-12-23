@@ -51,6 +51,9 @@ export default function Info() {
                   : "red-td"
               }
             >
+              {data.market_data.price_change_percentage_24h > 0
+                  ? "⬆ "
+                  : "⬇ "}
               {data.market_data.price_change_percentage_24h.toFixed(2)}
             </h3>
           </div>
