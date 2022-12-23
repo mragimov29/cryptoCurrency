@@ -1,5 +1,9 @@
 .info-page {
     margin: 50px 20vw;
+    height: 100vh;
+}
+
+.main-and-link {
     display: flex;
     justify-content: space-between;
 }
