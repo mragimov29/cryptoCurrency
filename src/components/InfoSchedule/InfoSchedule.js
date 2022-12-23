@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-
+import "./InfoSchedule.css";
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -50,7 +50,7 @@ export default function InfoSchedule({ price, date }) {
             fill: false,
             pointBorderColor: 'transparent',
             pointBackgroundColor: 'transparent',
-            backgroundColor: 'rgb(255, 255, 255)', // цвет точек
+            backgroundColor: 'rgb(25, 118, 210)', // цвет точек
             borderColor: 'rgb(25, 118, 210)',
           },
         ],
@@ -62,14 +62,14 @@ export default function InfoSchedule({ price, date }) {
             display: false,
           },
         },
-        maintainAspectRatio: false,
-        tooltips: {
-          mode: false,
-          callbacks: {
-            title: function () {},
-            label: function () {},
+        elements: {
+          point: {
+            radius: 10,
+            hoverRadius: 10,
+            hitRadius: 10
           },
         },
+        maintainAspectRatio: false,
         scales: {
           x: {
             ticks: {
@@ -87,7 +87,7 @@ export default function InfoSchedule({ price, date }) {
 
   if (data === null && options === null && dates.length === 0)
     return <>loading...</>;
-    
+
   return (
     <div className="info-schedule">
         <Line className="schedule" data={data} options={options} />

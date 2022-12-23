@@ -83,7 +83,6 @@ export default function Info() {
         price={data.market_data.sparkline_7d}
         date={data.market_data.last_updated}
       />
-      <div className="conveter"></div>
     </div>
   );
 }
