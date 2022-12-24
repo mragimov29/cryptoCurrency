@@ -320,7 +320,7 @@ export default function CurrencyTable() {
         <tbody>
           {data.map((item, index) => {
             return (
-              <tr>
+              <tr key={item.id}>
                 <td className="index">{index + 1 + indexPlus}</td>
                 <td className="td-coin">
                   <Link to={`/${item.id}`}>

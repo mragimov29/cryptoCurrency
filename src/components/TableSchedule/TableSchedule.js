@@ -23,23 +23,17 @@ ChartJS.register(
 
 export default function TableSchedule({ price, id, date }) {
   const [dates, setDates] = useState([]);
-  // const [flag, setFlag] = useState(true);
   const [data, setData] = useState(null);
   const [options, setOptions] = useState(null);
 
   let flag = true;
   useEffect(() => {
-    console.log("X");
-    if (flag) {
       setDates([]);
       flag = false;
       const date1 = new Date(date);
 
       for (let i = 0; i < 168; i++) {
         date1.setHours(date1.getHours() - 1);
-        // let arrDate = new Date(
-        //   `${date.getDay()}.${date.getMonth()} ${date.getHours()}:${date.getMinutes()}`
-        // );
         dates.unshift(date1);
       }
 
@@ -106,11 +100,11 @@ export default function TableSchedule({ price, id, date }) {
           },
         },
       });
-    }
+    
   }, []);
 
   if (data === null && options === null && dates.length === 0)
     return <>loading...</>;
-  // return <></>;
+
   return <Line data={data} options={options} />;
 }
