@@ -23,7 +23,7 @@ export default function Converter({ symbol, id }) {
     getData(value)
       .then((res) => {
         setCurrency(res.prices[0][1]);
-        console.log('res', res.prices[0][1]);
+        
       })
       .catch((err) => alert(err));
     setOneTime(false);
@@ -32,7 +32,6 @@ export default function Converter({ symbol, id }) {
   useEffect(() => {
     if (oneTime) {
       getCurrency(selectValue);
-      console.log(currency);
     }
   }, []);
 
