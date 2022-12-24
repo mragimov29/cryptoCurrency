@@ -38,6 +38,7 @@ export default function InfoSchedule({ price, date, symbol }) {
         date1.setHours(date1.getHours() - 1);
         dates.unshift(date1);
       }
+
       console.log(dates.length);
       setData({
         labels: dates,
@@ -90,7 +91,7 @@ export default function InfoSchedule({ price, date, symbol }) {
             },
       });
     }
-  }, []);
+  }, [date]);
 
   if (data === null && options === null && dates.length === 0)
     return <>loading...</>;

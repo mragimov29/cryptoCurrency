@@ -6,9 +6,8 @@ import "./Info.css";
 
 export default function Info() {
   const params = useParams();
-
-  const [oneTime, setOneTime] = useState(true);
   const [data, setData] = useState(null);
+  const [oldParams, setOldParams] = useState(params);
 
   const getData = async () => {
     let response = await fetch(
@@ -21,15 +20,12 @@ export default function Info() {
   };
 
   useEffect(() => {
-    // if (oneTime) {
     getData()
       .then((res) => {
         setData(res);
       })
       .catch((err) => alert(err));
-    setOneTime(false);
-    // }
-  }, []);
+  }, [params.id]);
 
   if (data === null) return <h1>Loading...</h1>;
 
