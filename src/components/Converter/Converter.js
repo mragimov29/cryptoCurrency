@@ -8,29 +8,25 @@ export default function Converter({ symbol, id }) {
   const [first, setFirst] = useState(null);
   const [second, setSecond] = useState(null);
   const [selectValue, setSelectValue] = useState("usd");
+  const [go, setGo] = useState(false);
 
-  const getData = (vs_currency) => {
-    let response = fetch(
+  const getData = async (vs_currency) => {
+    let response = await fetch(
       `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${vs_currency}&days=0`
     );
     let data = response.json();
     return data;
   };
 
-  const getCurrency = (vs_currency) => {
-    fetch(
-        `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${vs_currency}&days=0`
-      ).then(res=>res.json())
-      .then(data => {
-        setCurrency(data.prices[0][1]);
+  const getCurrency = (value) => {
+    setCurrency(0);
+    getData(value)
+      .then((res) => {
+        setCurrency(res.prices[0][1]);
+        console.log('res', res.prices[0][1]);
       })
-    // getData(value)
-    //   .then((res) => {
-    //     setCurrency(res.prices[0][1]);
-    //     console.log('res', res.prices[0][1]);
-    //   })
-    //   .catch((err) => alert(err));
-    // setOneTime(false);
+      .catch((err) => alert(err));
+    setOneTime(false);
   };
 
   useEffect(() => {
@@ -50,11 +46,9 @@ export default function Converter({ symbol, id }) {
     setFirst((e.target.value / currency).toFixed(2));
   };
 
-  const selectChange = (e) => {
+  const selectChange = async (e) => {
     getCurrency(e.target.value);
     setSelectValue(e.target.value);
-    // setSecond((first * currency).toFixed(2));
-    secondChange();
   };
 
   return (
