@@ -21,7 +21,7 @@ ChartJS.register(
   Legend
 );
 
-export default function InfoSchedule({ price, date }) {
+export default function InfoSchedule({ price, date, symbol }) {
   const [dates, setDates] = useState([]);
   // const [flag, setFlag] = useState(true);
   const [data, setData] = useState(null);
@@ -43,6 +43,7 @@ export default function InfoSchedule({ price, date }) {
         labels: dates,
         datasets: [
           {
+            label: symbol,
             data: price.price,
             fill: false,
             backgroundColor: "rgb(25, 118, 212)",

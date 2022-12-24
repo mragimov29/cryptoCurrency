@@ -7,10 +7,11 @@ export default function CurrencyTable() {
   const [data, setData] = useState(null);
   const [oneTime, setOneTime] = useState(true);
   const [dates, setDates] = useState([]);
+  const [page, setPage] = useState(1);
 
-  const getData = async () => {
+  const getData = async (page) => {
     let response = await fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
+      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
     );
     let data = response.json();
     return data;
@@ -18,8 +19,9 @@ export default function CurrencyTable() {
 
   useEffect(() => {
     if (oneTime) {
-      getData()
+      getData(page)
         .then((res) => {
+          setData(null);
           setData(res);
         })
         .catch((err) => alert(err));
@@ -187,12 +189,42 @@ export default function CurrencyTable() {
     }
   };
 
+  const selectPage = (event) => {
+    let pageNum = event.target.innerHTML;
+    setPage(event.target.innerHTML);
+    setData(null);
+    getData(pageNum)
+      .then((res) => {
+        setData(res);
+      })
+      .catch((err) => alert(err));
+  };
+
   if (data === null) {
     return <h1>Loading...</h1>;
   }
 
   return (
     <div className="currency-table">
+      <div className="pages top">
+        <div className="pages-buttons">
+          <div onClick={selectPage}>
+            <button>1</button>
+          </div>
+          <div onClick={selectPage}>
+            <button>2</button>
+          </div>
+          <div onClick={selectPage}>
+            <button>3</button>
+          </div>
+          <div onClick={selectPage}>
+            <button>4</button>
+          </div>
+          <div onClick={selectPage}>
+            <button>5</button>
+          </div>
+        </div>
+      </div>
       <table>
         <thead>
           <tr>
@@ -276,7 +308,9 @@ export default function CurrencyTable() {
                         : "red-td"
                     }
                   >
-                    {item.price_change_percentage_1h_in_currency.toFixed(2)}
+                    {item.price_change_percentage_1h_in_currency === null
+                      ? item.price_change_percentage_1h_in_currency
+                      : item.price_change_percentage_1h_in_currency.toFixed(1)}
                   </p>
                 </td>
                 <td>
@@ -287,7 +321,9 @@ export default function CurrencyTable() {
                         : "red-td"
                     }
                   >
-                    {item.price_change_percentage_24h_in_currency.toFixed(2)}
+                    {item.price_change_percentage_24h_in_currency === null
+                      ? item.price_change_percentage_24h_in_currency
+                      : item.price_change_percentage_24h_in_currency.toFixed(1)}
                   </p>
                 </td>
                 <td>
@@ -298,7 +334,9 @@ export default function CurrencyTable() {
                         : "red-td"
                     }
                   >
-                    {item.price_change_percentage_7d_in_currency.toFixed(2)}
+                    {item.price_change_percentage_7d_in_currency === null
+                      ? item.price_change_percentage_7d_in_currency
+                      : item.price_change_percentage_7d_in_currency.toFixed(1)}
                   </p>
                 </td>
                 <td>${item.total_volume}</td>
@@ -317,6 +355,25 @@ export default function CurrencyTable() {
           })}
         </tbody>
       </table>
+      <div className="pages bottom">
+        <div className="pages-buttons">
+          <div onClick={selectPage}>
+            <button>1</button>
+          </div>
+          <div onClick={selectPage}>
+            <button>2</button>
+          </div>
+          <div onClick={selectPage}>
+            <button>3</button>
+          </div>
+          <div onClick={selectPage}>
+            <button>4</button>
+          </div>
+          <div onClick={selectPage}>
+            <button>5</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

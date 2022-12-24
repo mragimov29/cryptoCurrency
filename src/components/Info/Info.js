@@ -85,6 +85,7 @@ export default function Info() {
         </div>
       </div>
       <InfoSchedule
+        symbol={data.symbol.toUpperCase()}
         price={data.market_data.sparkline_7d}
         date={data.market_data.last_updated}
       />
