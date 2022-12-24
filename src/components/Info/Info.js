@@ -55,7 +55,7 @@ export default function Info() {
               {data.market_data.price_change_percentage_24h > 0
                   ? "⬆ "
                   : "⬇ "}
-              {data.market_data.price_change_percentage_24h.toFixed(2)}
+              {data.market_data.price_change_percentage_24h.toFixed(1)}
             </h3>
           </div>
           <div

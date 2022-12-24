@@ -19,14 +19,22 @@
 .first {
     margin-top: 10px;
     display: flex;
+    justify-content: space-between;
 }
 
-.first input {
+/* .first input {
     margin-left: 23px;
-}
+} */
 
 .second {
     margin-left: -10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.second input {
+    margin-top: 10px;
+    height: 17px;
 }
 
 select {
