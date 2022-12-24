@@ -7,6 +7,7 @@ export default function CurrencyTable() {
   const [data, setData] = useState(null);
   const [oneTime, setOneTime] = useState(true);
   const [dates, setDates] = useState([]);
+  const [indexPlus, setIndex] = useState(0);
   const [page, setPage] = useState(1);
 
   const getData = async (page) => {
@@ -191,6 +192,25 @@ export default function CurrencyTable() {
 
   const selectPage = (event) => {
     let pageNum = event.target.innerHTML;
+
+    switch (pageNum) {
+      case "1":
+        setIndex(0);
+        break;
+      case "2":
+        setIndex(100);
+        break;
+      case "3":
+        setIndex(200);
+        break;
+      case "4":
+        setIndex(300);
+        break;
+      case "5":
+        setIndex(400);
+        break;
+    }
+
     setPage(event.target.innerHTML);
     setData(null);
     getData(pageNum)
@@ -209,19 +229,29 @@ export default function CurrencyTable() {
       <div className="pages top">
         <div className="pages-buttons">
           <div onClick={selectPage}>
-            <button>1</button>
+            <button className={indexPlus === 0 ? "selected-page" : ""}>
+              1
+            </button>
           </div>
           <div onClick={selectPage}>
-            <button>2</button>
+            <button className={indexPlus === 100 ? "selected-page" : ""}>
+              2
+            </button>
           </div>
           <div onClick={selectPage}>
-            <button>3</button>
+            <button className={indexPlus === 200 ? "selected-page" : ""}>
+              3
+            </button>
           </div>
           <div onClick={selectPage}>
-            <button>4</button>
+            <button className={indexPlus === 300 ? "selected-page" : ""}>
+              4
+            </button>
           </div>
           <div onClick={selectPage}>
-            <button>5</button>
+            <button className={indexPlus === 400 ? "selected-page" : ""}>
+              5
+            </button>
           </div>
         </div>
       </div>
@@ -291,7 +321,7 @@ export default function CurrencyTable() {
           {data.map((item, index) => {
             return (
               <tr>
-                <td className="index">{index + 1}</td>
+                <td className="index">{index + 1 + indexPlus}</td>
                 <td className="td-coin">
                   <Link to={`/${item.id}`}>
                     <img className="table-image" src={item.image} />
@@ -358,19 +388,29 @@ export default function CurrencyTable() {
       <div className="pages bottom">
         <div className="pages-buttons">
           <div onClick={selectPage}>
-            <button>1</button>
+            <button className={indexPlus === 0 ? "selected-page" : ""}>
+              1
+            </button>
           </div>
           <div onClick={selectPage}>
-            <button>2</button>
+            <button className={indexPlus === 100 ? "selected-page" : ""}>
+              2
+            </button>
           </div>
           <div onClick={selectPage}>
-            <button>3</button>
+            <button className={indexPlus === 200 ? "selected-page" : ""}>
+              3
+            </button>
           </div>
           <div onClick={selectPage}>
-            <button>4</button>
+            <button className={indexPlus === 300 ? "selected-page" : ""}>
+              4
+            </button>
           </div>
           <div onClick={selectPage}>
-            <button>5</button>
+            <button className={indexPlus === 400 ? "selected-page" : ""}>
+              5
+            </button>
           </div>
         </div>
       </div>
