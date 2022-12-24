@@ -1,8 +1,26 @@
 .search-answer {
     background-color: gray;
-    position: fixed;
-    width: 15%;
+    position: absolute;
+    width: 20%;
     min-height: 400px;
     max-height: 400px;
-    right: 26.5%;
+    right: 24.5%;
+    overflow-y: scroll;
+}
+
+.search-none {
+    display: none;
+}
+
+.result {
+    display: flex;
+    width: 90%;
+    margin-left: 20px;
+    justify-content: space-between;
+    margin-bottom: 5px;
+}
+
+.result-img {
+    width: 25px;
+    height: 25px;
 }
