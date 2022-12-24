@@ -36,13 +36,15 @@ export default function Converter({ symbol, id }) {
   }, []);
 
   const firstChange = (e) => {
-    setFirst(e.target.value);
-    setSecond((e.target.value * currency).toFixed(2));
+    let value = e.target.value.replace(/[-]/g, '')
+    setFirst(value);
+    setSecond((value * currency).toFixed(2));
   };
 
   const secondChange = (e) => {
-    setSecond(e.target.value);
-    setFirst((e.target.value / currency).toFixed(2));
+    let value = e.target.value.replace(/[-]/g, '')
+    setSecond(value);
+    setFirst((value / currency).toFixed(2));
   };
 
   const selectChange = async (e) => {
