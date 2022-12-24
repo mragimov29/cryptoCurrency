@@ -1,6 +1,33 @@
 import "./Converter.css";
 import { useState, useEffect } from "react";
 
+const removeExtraCharacters = (str) => {
+  str = str.replace(',', '.').replace(/^00+/, '0');
+
+  if (str[0] == '0' && str.length > 1 && str[1] != '.')
+      str = str.slice(1);
+
+  str = str.replace(',', '.');
+  if (str.length == 1 && str[0] == '.') str = str.replace('.', '');
+
+  str = str.replace(/[^0-9,.]/g, '');
+
+  let arr = str.split('');
+  let dots = arr.filter(x => x == '.');
+  let dot = 0;
+
+  if (dots.length == 2) {
+      arr.forEach((item, index) => {
+          if (dot == 1 && item == '.') {
+              arr.splice(index, 1);
+          }
+          if (item == '.') dot++;
+      })
+      str = arr.join('');
+  }
+  return str;
+}
+
 export default function Converter({ symbol, id }) {
   //https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=0
   const [oneTime, setOneTime] = useState(true);
@@ -36,13 +63,13 @@ export default function Converter({ symbol, id }) {
   }, []);
 
   const firstChange = (e) => {
-    let value = e.target.value.replace(/[-]/g, '')
+    let value = removeExtraCharacters(e.target.value);
     setFirst(value);
     setSecond((value * currency).toFixed(2));
   };
 
   const secondChange = (e) => {
-    let value = e.target.value.replace(/[-]/g, '')
+    let value = removeExtraCharacters(e.target.value);
     setSecond(value);
     setFirst((value / currency).toFixed(2));
   };
@@ -58,7 +85,7 @@ export default function Converter({ symbol, id }) {
       <div className="converter">
         <div className="first">
           <div className="converter-symbol">{symbol}</div>
-          <input value={first} onChange={firstChange} type="number"></input>
+          <input value={first} onChange={firstChange} type="text"></input>
         </div>
 
         <div className="second">
@@ -78,7 +105,7 @@ export default function Converter({ symbol, id }) {
             value={second}
             onChange={secondChange}
             className="second-input"
-            type="number"
+            type="text"
           ></input>
         </div>
       </div>
