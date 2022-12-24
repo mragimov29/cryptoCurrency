@@ -4,10 +4,9 @@ export default function SignInForm() {
   return (
     <div className="sign-in-div">
       <form className="sign-in-form">
-        <label className="sign-in-label">Login: </label>
-        <input className="sign-in-input" />
-        <label className="sign-in-label">Password: </label>
-        <input className="sign-in-input" type="password"></input>
+      <h1>Sign In</h1>
+        <input className="sign-in-input" placeholder="Login" />
+        <input className="sign-in-input" type="password" placeholder="Password"></input>
         <button className="sign-in-button">Sign In</button>
       </form>
     </div>

@@ -17,11 +17,7 @@
 .sign-in-input {
     font-size: 25px;
     margin-top: 10px;
-}
-
-.sign-in-label {
-    font-size: 25px;
-    margin-top: 10px;
+    padding: 7px 15px;
 }
 
 .sign-in-button {
