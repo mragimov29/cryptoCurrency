@@ -12,7 +12,15 @@
 .price {
     display: flex;
     justify-content: space-between;
-    width: 170px;
+    width: 300px;
+}
+
+.add-info-button {
+    background-color: #0066FE;
+    font-size: 15px;
+    height: 55px;
+    border-radius: 10px;
+    border: none;
 }
 
 .rank {

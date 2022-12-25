@@ -1,11 +1,18 @@
 import { useEffect, useState } from "react";
+import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import Converter from "../Converter/Converter";
 import InfoSchedule from "../InfoSchedule/InfoSchedule";
 import Loader from "../Loader/Loader";
 import "./Info.css";
 
-export default function Info() {
+const mapStateToProps = (state) => {
+  return {
+    value: state.value,
+    favorites: state.favorites,
+  };
+};
+function Info({ favorites }) {
   const params = useParams();
   const [data, setData] = useState(null);
   const [oldParams, setOldParams] = useState(params);
@@ -49,11 +56,17 @@ export default function Info() {
                   : "red-td"
               }
             >
-              {data.market_data.price_change_percentage_24h > 0
-                  ? "⬆ "
-                  : "⬇ "}
+              {data.market_data.price_change_percentage_24h > 0 ? "⬆ " : "⬇ "}
               {data.market_data.price_change_percentage_24h.toFixed(1)}
             </h3>
+            <button
+              className="add-info-button"
+              disabled={
+                favorites.find((el) => el.id === data.id) ? true : false
+              }
+            >
+              Add to Favorites
+            </button>
           </div>
           <div
             className="info-description"
@@ -78,7 +91,7 @@ export default function Info() {
           <a href={data.links.repos_url.github[0]}>
             <button className="info-link-bat">GitHub</button>
           </a>
-        <Converter symbol={data.symbol.toUpperCase()} id={params.id}/>
+          <Converter symbol={data.symbol.toUpperCase()} id={params.id} />
         </div>
       </div>
       <InfoSchedule
@@ -89,3 +102,5 @@ export default function Info() {
     </div>
   );
 }
+
+export default connect(mapStateToProps)(Info);
