@@ -7,10 +7,9 @@ import { connect } from "react-redux";
 import { setAcc } from "../../redux/actions/actions";
 import "./Header.css";
 
-
 const mapStateToProps = (state) => {
   return {
-    value: state.value
+    value: state.value,
   };
 };
 
@@ -23,19 +22,18 @@ function Header({ value, setAcc }) {
     if (value) {
       localStorage.clear();
       window.location.reload();
-    }
-    else {
+    } else {
       signInWithPopup(auth, provider).then((data) => {
         setAcc(data.user.email);
+        console.log(data.user);
         localStorage.setItem("email", data.user.email);
       });
     }
-
   };
 
-  useEffect(() => {
-    setAcc(localStorage.getItem("email"));
-  });
+  const alertClick = () => {
+    alert("You are not signed in");
+  };
 
   return (
     <header className="header">
@@ -47,15 +45,22 @@ function Header({ value, setAcc }) {
               <h2>Main Page</h2>
             </button>
           </Link>
-          <button className="header-button">
-            <h2>Profile</h2>
-          </button>
+          {value ? (
+            <Link to="/profile">
+              <button className="header-button">
+                <h2>Profile</h2>
+              </button>
+            </Link>
+          ) : (
+            <button className="header-button" onClick={alertClick}>
+              <h2>Profile</h2>
+            </button>
+          )}
         </div>
         <SearchLine />
         <button className="header-button sing-in" onClick={handleClick}>
           {value ? "Log out" : "Sign In"}
         </button>
-        
       </div>
     </header>
   );
