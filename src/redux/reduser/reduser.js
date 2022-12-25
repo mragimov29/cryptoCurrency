@@ -8,8 +8,7 @@ export default function reducer(state = initialState, action) {
   switch (action.type) {
     case "ADD_TO_FAVORITES":
       favorites = [...state.favorites, action.payload.data];
-      
-      console.log(favorites);
+
       return {
         ...state,
         favorites: favorites,
