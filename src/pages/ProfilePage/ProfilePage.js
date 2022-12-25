@@ -1,3 +1,4 @@
+import BuySell from "../../components/BuySell/BuySell";
 import Favorites from "../../components/Favorites/Favorites";
 import Header from "../../components/Header/Header";
 import "./ProfilePage.css";
@@ -16,7 +17,11 @@ export default function ProfilePage() {
           <h2>{localStorage.getItem("name")}</h2>
         </div>
         <h2 className="favorite-h2">Favorite coins</h2>
+        <div className="profile-f-d-b-s">
         <Favorites />
+
+        <BuySell />
+        </div>
       </div>
     </div>
   );

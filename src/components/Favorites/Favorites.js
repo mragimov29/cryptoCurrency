@@ -10,7 +10,7 @@ const mapStateToProps = (state) => {
 
 function Favorites({ favorites }) {
   useEffect(() => {
-    console.log(favorites);
+    if(favorites.length > 8) document.querySelector('.favorites').style.overflowY = 'scroll';
   });
 
   if (!favorites) return <>NO!</>;
@@ -21,9 +21,10 @@ function Favorites({ favorites }) {
         return (
           <div className="favorites-li">
             <img className="favorites-star" src={require("../../stars/golden_star.svg").default}></img>
-            <img className="favorites-img" src={data.image.small}></img>
-            <p>{data.name}</p>
-            <p>({data.symbol.toUpperCase()})</p>
+            <img className="favorites-img" src={data.data.image.small}></img>
+            <p>{data.data.name}</p>
+            <p>({data.data.symbol.toUpperCase()})</p>
+            <p>{data.count}</p>
           </div>
         );
       })}

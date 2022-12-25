@@ -62,7 +62,7 @@ function Info({ favorites }) {
             <button
               className="add-info-button"
               disabled={
-                favorites.find((el) => el.id === data.id) ? true : false
+                favorites.find((el) => el.data.id === data.id) ? true : false
               }
             >
               Add to Favorites

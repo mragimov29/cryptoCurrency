@@ -27,7 +27,7 @@ function CurrencyTable({ data, indexPlus, value, addToFavorites, favorites }) {
       )
         .then((res) => res.json())
         .then((data) => {
-          addToFavorites(data);
+          addToFavorites({data: data, count: 0});
         });
     }
   };
@@ -60,7 +60,7 @@ function CurrencyTable({ data, indexPlus, value, addToFavorites, favorites }) {
                     }}
                     className="star-img"
                     src={
-                      favorites.find((el) => el.id === item.id)
+                      favorites.find((el) => el.data.id === item.id)
                         ? require("../../stars/golden_star.svg").default
                         : require("../../stars/star.svg").default
                     }

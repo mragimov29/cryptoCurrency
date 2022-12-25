@@ -11,7 +11,7 @@
 .favorites {
     width: 300px;
     border: 1px solid black;
-    border-radius: 20px;
+    border-radius: 20px 0px 0px 20px;
     padding: 15px;
     min-height: 400px;
     max-height: 400px;
