@@ -2,8 +2,20 @@ import React from "react";
 import { Link } from "react-router-dom";
 import TableSchedule from "../TableSchedule/TableSchedule";
 import "./CurrencyTable.css";
+import { connect } from "react-redux";
+import { addToFavorites } from "../../redux/actions/actions";
 
-export default function CurrencyTable({data, indexPlus}) {
+const mapStateToProps = (state) => {
+  return {
+    value: state.value,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  addToFavorites: (id) => dispatch(addToFavorites(id)),
+});
+
+function CurrencyTable({ data, indexPlus, value, addToFavorites }) {
   const sortHandle = (table) => {
     let th = document.querySelectorAll("th");
     let td = document.querySelectorAll("td");
@@ -163,6 +175,13 @@ export default function CurrencyTable({data, indexPlus}) {
     }
   };
 
+  const addToFavClick = (id) => {
+    if (!value) alert("You are not signed in");
+    else {
+      addToFavorites(id);
+    }
+  };
+
   return (
     <div className="currency-table">
       <table>
@@ -232,7 +251,15 @@ export default function CurrencyTable({data, indexPlus}) {
           {data.map((item, index) => {
             return (
               <tr key={item.id}>
-                <td><img className ="star-img" src={require('../../stars/star.svg').default}></img></td>
+                <td>
+                  <img
+                    onClick={() => {
+                      addToFavClick(item.id);
+                    }}
+                    className="star-img"
+                    src={require("../../stars/star.svg").default}
+                  ></img>
+                </td>
                 <td className="index">{index + 1 + indexPlus}</td>
                 <td className="td-coin">
                   <Link to={`/${item.id}`}>
@@ -300,3 +327,5 @@ export default function CurrencyTable({data, indexPlus}) {
     </div>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyTable);

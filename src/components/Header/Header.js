@@ -19,7 +19,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function Header({ value, setAcc }) {
-  // const [value, setValue] = useState("");
   const handleClick = () => {
     if (value) {
       localStorage.clear();
@@ -36,7 +35,6 @@ function Header({ value, setAcc }) {
 
   useEffect(() => {
     setAcc(localStorage.getItem("email"));
-    console.log(value);
   });
 
   return (
