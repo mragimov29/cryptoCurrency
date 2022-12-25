@@ -17,9 +17,13 @@
     max-height: 400px;
 }
 
-.favorites-li {
+.favorites-li,.favorites-info-li {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+}
+
+.favorites-info-li {
+    width: 80%;
 }
