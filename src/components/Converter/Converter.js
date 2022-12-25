@@ -57,10 +57,10 @@ export default function Converter({ symbol, id }) {
   };
 
   useEffect(() => {
-    if (oneTime) {
+    // if (oneTime) {
       getCurrency(selectValue);
-    }
-  }, []);
+    // }
+  }, [id]);
 
   const firstChange = (e) => {
     let value = removeExtraCharacters(e.target.value);

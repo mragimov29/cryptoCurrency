@@ -21,20 +21,18 @@ ChartJS.register(
   Legend
 );
 
-export default function TableSchedule({ price, id, date }) {
+export default function TableSchedule({ price, date }) {
   const [dates, setDates] = useState([]);
   const [data, setData] = useState(null);
   const [options, setOptions] = useState(null);
 
-  let flag = true;
   useEffect(() => {
       setDates([]);
-      flag = false;
-      const date1 = new Date(date);
+      let date1 = new Date(date);
 
-      for (let i = 0; i < 168; i++) {
+      for (let i = 0; i < price.price.length; i++) {
         date1.setHours(date1.getHours() - 1);
-        dates.unshift(date1);
+        dates.unshift(date1.toString());
       }
 
       let borderColor = "";
@@ -100,7 +98,6 @@ export default function TableSchedule({ price, id, date }) {
           },
         },
       });
-    
   }, []);
 
   if (data === null && options === null && dates.length === 0)

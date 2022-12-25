@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import TableSchedule from "../TableSchedule/TableSchedule";
 import "./CurrencyTable.css";
@@ -6,7 +6,6 @@ import "./CurrencyTable.css";
 export default function CurrencyTable() {
   const [data, setData] = useState(null);
   const [oneTime, setOneTime] = useState(true);
-  const [dates, setDates] = useState([]);
   const [indexPlus, setIndex] = useState(0);
   const [page, setPage] = useState(1);
 
@@ -34,7 +33,6 @@ export default function CurrencyTable() {
     let th = document.querySelectorAll("th");
     let td = document.querySelectorAll("td");
     let data = [];
-
     for (let i = 0; i < td.length; i += 9) {
       data.push({
         index: td[i].innerHTML,

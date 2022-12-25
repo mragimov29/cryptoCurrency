@@ -32,11 +32,11 @@ export default function InfoSchedule({ price, date, symbol }) {
     if (flag) {
       setDates([]);
       flag = false;
-      const date1 = new Date(date);
+      let date1 = new Date(date);
 
-      for (let i = 0; i < 168; i++) {
+      for (let i = 0; i < price.price.length; i++) {
         date1.setHours(date1.getHours() - 1);
-        dates.unshift(date1);
+        dates.unshift(date1.toString());
       }
 
       console.log(dates.length);

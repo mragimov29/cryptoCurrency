@@ -19,7 +19,9 @@ export default function Header() {
           </button>
         </div>
         <SearchLine />
-        <button className="header-button sing-in">Sign In</button>
+        <Link to="/signin">
+          <button className="header-button sing-in">Sign In</button>
+        </Link>
       </div>
     </header>
   );
