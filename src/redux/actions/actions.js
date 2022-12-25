@@ -1,9 +1,8 @@
-export function createDates(date, price) {
+export function setAcc(value) {
   return {
-    type: "CREATE_DATES",
+    type: "SET_ACC",
     payload: {
-      date: date,
-      price: price
+      value: value,
     },
   };
 }

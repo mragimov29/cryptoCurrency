@@ -3,23 +3,39 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { auth, provider } from "../..";
 import SearchLine from "../SearchLine/SearchLine";
+import { connect } from "react-redux";
+import { setAcc } from "../../redux/actions/actions";
 import "./Header.css";
 
-export default function Header() {
-  const [value, setValue] = useState("");
+
+const mapStateToProps = (state) => {
+  return {
+    value: state.value
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setAcc: (value) => dispatch(setAcc(value)),
+});
+
+function Header({ value, setAcc }) {
+  // const [value, setValue] = useState("");
   const handleClick = () => {
-    if (value) {localStorage.clear();
-    window.location.reload();}
+    if (value) {
+      localStorage.clear();
+      window.location.reload();
+    }
     else {
       signInWithPopup(auth, provider).then((data) => {
-        setValue(data.user.email);
+        setAcc(data.user.email);
         localStorage.setItem("email", data.user.email);
       });
     }
+
   };
 
   useEffect(() => {
-    setValue(localStorage.getItem("email"));
+    setAcc(localStorage.getItem("email"));
     console.log(value);
   });
 
@@ -46,3 +62,5 @@ export default function Header() {
     </header>
   );
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
