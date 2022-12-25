@@ -14,11 +14,6 @@ th {
   text-align: center;
 }
 
-th:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 .currency-table {
   width: 80%;
 }

@@ -7,11 +7,11 @@ export function setAcc(value) {
   };
 }
 
-export function addToFavorites(id) {
+export function addToFavorites(data) {
   return {
     type: "ADD_TO_FAVORITES",
     payload: {
-      id: id,
+      data: data,
     },
   };
 }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import TableSchedule from "../TableSchedule/TableSchedule";
 import "./CurrencyTable.css";
@@ -8,177 +8,27 @@ import { addToFavorites } from "../../redux/actions/actions";
 const mapStateToProps = (state) => {
   return {
     value: state.value,
+    favorites: state.favorites,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  addToFavorites: (id) => dispatch(addToFavorites(id)),
+  addToFavorites: (data) => dispatch(addToFavorites(data)),
 });
 
-function CurrencyTable({ data, indexPlus, value, addToFavorites }) {
-  const sortHandle = (table) => {
-    let th = document.querySelectorAll("th");
-    let td = document.querySelectorAll("td");
-    let data = [];
-    for (let i = 0; i < td.length; i += 9) {
-      data.push({
-        index: td[i].innerHTML,
-        coin: td[i + 1].innerHTML,
-        price: td[i + 2].innerHTML,
-        h_1: td[i + 3].innerHTML,
-        h_24: td[i + 4].innerHTML,
-        d_7: td[i + 5].innerHTML,
-        volume: td[i + 6].innerHTML,
-        mkt_cap: td[i + 7].innerHTML,
-        last_7_d: td[i + 8].innerHTML,
-      });
-    }
-
-    if (table === 0) {
-      if (th[table].innerHTML === "# ˅") {
-        th[table].innerHTML = "# ˄";
-        data.sort((a, b) => (Number(a.index) > Number(b.index) ? -1 : 1));
-      } else {
-        th[table].innerHTML = "# ˅";
-        data.sort((a, b) => (Number(a.index) > Number(b.index) ? 1 : -1));
-      }
-    } else if (table === 1) {
-      if (th[table].innerHTML === "Coin ˅") {
-        th[table].innerHTML = "Coin ˄";
-        data.sort((a, b) =>
-          a.coin
-            .slice(a.coin.indexOf("<p>") + 3, a.coin.indexOf("</p>"))
-            .toLocaleLowerCase() >
-          b.coin
-            .slice(b.coin.indexOf("<p>") + 3, b.coin.indexOf("</p>"))
-            .toLocaleLowerCase()
-            ? -1
-            : 1
-        );
-      } else {
-        th[table].innerHTML = "Coin ˅";
-        data.sort((a, b) =>
-          a.coin
-            .slice(a.coin.indexOf("<p>") + 3, a.coin.indexOf("</p>"))
-            .toLocaleLowerCase() >
-          b.coin
-            .slice(b.coin.indexOf("<p>") + 3, b.coin.indexOf("</p>"))
-            .toLocaleLowerCase()
-            ? 1
-            : -1
-        );
-      }
-    } else if (table === 2) {
-      if (th[table].innerHTML === "Price ˅") {
-        th[table].innerHTML = "Price ˄";
-        data.sort((a, b) =>
-          Number(a.price.slice(1)) > Number(b.price.slice(1)) ? -1 : 1
-        );
-      } else {
-        th[table].innerHTML = "Price ˅";
-        data.sort((a, b) =>
-          Number(a.price.slice(1)) > Number(b.price.slice(1)) ? 1 : -1
-        );
-      }
-    } else if (table === 3) {
-      if (th[table].innerHTML === "1h ˅") {
-        th[table].innerHTML = "1h ˄";
-        data.sort((a, b) =>
-          Number(a.h_1.slice(a.h_1.indexOf(">") + 1, a.h_1.indexOf("</"))) >
-          Number(b.h_1.slice(b.h_1.indexOf(">") + 1, b.h_1.indexOf("</")))
-            ? -1
-            : 1
-        );
-      } else {
-        th[table].innerHTML = "1h ˅";
-        data.sort((a, b) =>
-          Number(a.h_1.slice(a.h_1.indexOf(">") + 1, a.h_1.indexOf("</"))) >
-          Number(b.h_1.slice(b.h_1.indexOf(">") + 1, b.h_1.indexOf("</")))
-            ? 1
-            : -1
-        );
-      }
-    } else if (table === 4) {
-      if (th[table].innerHTML === "24h ˅") {
-        th[table].innerHTML = "24h ˄";
-        data.sort((a, b) =>
-          Number(a.h_24.slice(a.h_24.indexOf(">") + 1, a.h_24.indexOf("</"))) >
-          Number(b.h_24.slice(b.h_24.indexOf(">") + 1, b.h_24.indexOf("</")))
-            ? -1
-            : 1
-        );
-      } else {
-        th[table].innerHTML = "24h ˅";
-        data.sort((a, b) =>
-          Number(a.h_24.slice(a.h_24.indexOf(">") + 1, a.h_24.indexOf("</"))) >
-          Number(b.h_24.slice(b.h_24.indexOf(">") + 1, b.h_24.indexOf("</")))
-            ? 1
-            : -1
-        );
-      }
-    } else if (table === 5) {
-      if (th[table].innerHTML === "7d ˅") {
-        th[table].innerHTML = "7d ˄";
-        data.sort((a, b) =>
-          Number(a.d_7.slice(a.d_7.indexOf(">") + 1, a.d_7.indexOf("</"))) >
-          Number(b.d_7.slice(b.d_7.indexOf(">") + 1, b.d_7.indexOf("</")))
-            ? -1
-            : 1
-        );
-      } else {
-        th[table].innerHTML = "7d ˅";
-        data.sort((a, b) =>
-          Number(a.d_7.slice(a.d_7.indexOf(">") + 1, a.d_7.indexOf("</"))) >
-          Number(b.d_7.slice(b.d_7.indexOf(">") + 1, b.d_7.indexOf("</")))
-            ? 1
-            : -1
-        );
-      }
-    } else if (table === 6) {
-      if (th[table].innerHTML === "24h Volume ˅") {
-        th[table].innerHTML = "24h Volume ˄";
-        data.sort((a, b) =>
-          Number(a.volume.slice(1)) > Number(b.volume.slice(1)) ? -1 : 1
-        );
-      } else {
-        th[table].innerHTML = "24h Volume ˅";
-        data.sort((a, b) =>
-          Number(a.volume.slice(1)) > Number(b.volume.slice(1)) ? 1 : -1
-        );
-      }
-    } else if (table === 7) {
-      if (th[table].innerHTML === "Mkt Cap ˅") {
-        th[table].innerHTML = "Mkt Cap ˄";
-        data.sort((a, b) =>
-          Number(a.mkt_cap.slice(1)) > Number(b.mkt_cap.slice(1)) ? -1 : 1
-        );
-      } else {
-        th[table].innerHTML = "Mkt Cap ˅";
-        data.sort((a, b) =>
-          Number(a.mkt_cap.slice(1)) > Number(b.mkt_cap.slice(1)) ? 1 : -1
-        );
-      }
-    }
-
-    let j = 0;
-    for (let i = 0; i < td.length; i += 9) {
-      td[i].innerHTML = data[j].index;
-      td[i + 1].innerHTML = data[j].coin;
-      td[i + 2].innerHTML = data[j].price;
-      td[i + 3].innerHTML = data[j].h_1;
-      td[i + 4].innerHTML = data[j].h_24;
-      td[i + 5].innerHTML = data[j].d_7;
-      td[i + 6].innerHTML = data[j].volume;
-      td[i + 7].innerHTML = data[j].mkt_cap;
-      td[i + 8].innerHTML = data[j].last_7_d;
-      j++;
-    }
-  };
-
+function CurrencyTable({ data, indexPlus, value, addToFavorites, favorites }) {
   const addToFavClick = (id) => {
     if (!value) alert("You are not signed in");
     else {
-      addToFavorites(id);
+      fetch(
+        `https://api.coingecko.com/api/v3/coins/${[
+          id,
+        ]}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=true`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          addToFavorites(data);
+        });
     }
   };
 
@@ -188,62 +38,14 @@ function CurrencyTable({ data, indexPlus, value, addToFavorites }) {
         <thead>
           <tr>
             <th></th>
-            <th
-              onClick={() => {
-                sortHandle(0);
-              }}
-            >
-              # ˅
-            </th>
-            <th
-              onClick={() => {
-                sortHandle(1);
-              }}
-            >
-              Coin ˅
-            </th>
-            <th
-              onClick={() => {
-                sortHandle(2);
-              }}
-            >
-              Price ˅
-            </th>
-            <th
-              onClick={() => {
-                sortHandle(3);
-              }}
-            >
-              1h ˅
-            </th>
-            <th
-              onClick={() => {
-                sortHandle(4);
-              }}
-            >
-              24h ˅
-            </th>
-            <th
-              onClick={() => {
-                sortHandle(5);
-              }}
-            >
-              7d ˅
-            </th>
-            <th
-              onClick={() => {
-                sortHandle(6);
-              }}
-            >
-              24h Volume ˅
-            </th>
-            <th
-              onClick={() => {
-                sortHandle(7);
-              }}
-            >
-              Mkt Cap ˅
-            </th>
+            <th>#</th>
+            <th>Coin</th>
+            <th>Price</th>
+            <th>1h</th>
+            <th>24h</th>
+            <th>7d</th>
+            <th>24h Volume</th>
+            <th>Mkt Cap</th>
             <th>Last 7 Days</th>
           </tr>
         </thead>
@@ -257,7 +59,11 @@ function CurrencyTable({ data, indexPlus, value, addToFavorites }) {
                       addToFavClick(item.id);
                     }}
                     className="star-img"
-                    src={require("../../stars/star.svg").default}
+                    src={
+                      favorites.find((el) => el.id === item.id)
+                        ? require("../../stars/golden_star.svg").default
+                        : require("../../stars/star.svg").default
+                    }
                   ></img>
                 </td>
                 <td className="index">{index + 1 + indexPlus}</td>
