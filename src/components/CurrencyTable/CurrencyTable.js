@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Loader from "../Loader/Loader";
 import TableSchedule from "../TableSchedule/TableSchedule";
 import "./CurrencyTable.css";
 
@@ -218,9 +219,7 @@ export default function CurrencyTable() {
       .catch((err) => alert(err));
   };
 
-  if (data === null) {
-    return <h1>Loading...</h1>;
-  }
+  if (data === null) return <Loader />;
 
   return (
     <div className="currency-table">

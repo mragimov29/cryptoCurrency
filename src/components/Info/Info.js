@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Converter from "../Converter/Converter";
 import InfoSchedule from "../InfoSchedule/InfoSchedule";
+import Loader from "../Loader/Loader";
 import "./Info.css";
 
 export default function Info() {
@@ -27,7 +28,7 @@ export default function Info() {
       .catch((err) => alert(err));
   }, [params.id]);
 
-  if (data === null) return <h1>Loading...</h1>;
+  if (data === null) return <Loader />;
 
   return (
     <div className="info-page">
