@@ -1,0 +1,14 @@
+.profile-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 13%;
+}
+
+.profile-img {
+    border-radius: 100px;
+    border: 1px solid snow;
+    width: 50px;
+    height: 50px;
+}

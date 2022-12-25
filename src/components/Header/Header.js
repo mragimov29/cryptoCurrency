@@ -27,6 +27,8 @@ function Header({ value, setAcc }) {
         setAcc(data.user.email);
         console.log(data.user);
         localStorage.setItem("email", data.user.email);
+        localStorage.setItem("photo", data.user.photoURL);
+        localStorage.setItem("name", data.user.displayName);
       });
     }
   };
