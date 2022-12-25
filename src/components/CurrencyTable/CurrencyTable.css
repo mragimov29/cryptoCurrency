@@ -64,35 +64,8 @@ td {
   height: 100px;
 }
 
-
-.selected-page {
-  background-color: green;
-}
-
-.pages button {
-  border: none;
-  width: 30px;
-  height: 30px;
-}
-
-.pages {
-  margin-top: 10px;
-  margin-left: 40vw;
-  width: 200px;
-}
-
-.pages-buttons {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-}
-
-.bottom {
-  margin-top: 30px;
-  padding-bottom: 100px;
-}
-
-.top {
-  padding-top: 20px;
-  margin-bottom: -10px;
+.star-img {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
 }

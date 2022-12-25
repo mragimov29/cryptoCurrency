@@ -1,35 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import Loader from "../Loader/Loader";
 import TableSchedule from "../TableSchedule/TableSchedule";
 import "./CurrencyTable.css";
 
-export default function CurrencyTable() {
-  const [data, setData] = useState(null);
-  const [oneTime, setOneTime] = useState(true);
-  const [indexPlus, setIndex] = useState(0);
-  const [page, setPage] = useState(1);
-
-  const getData = async (page) => {
-    let response = await fetch(
-      `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=${page}&sparkline=true&price_change_percentage=1h%2C24h%2C7d`
-    );
-    let data = response.json();
-    return data;
-  };
-
-  useEffect(() => {
-    if (oneTime) {
-      getData(page)
-        .then((res) => {
-          setData(null);
-          setData(res);
-        })
-        .catch((err) => alert(err));
-      setOneTime(false);
-    }
-  }, []);
-
+export default function CurrencyTable({data, indexPlus}) {
   const sortHandle = (table) => {
     let th = document.querySelectorAll("th");
     let td = document.querySelectorAll("td");
@@ -189,72 +163,12 @@ export default function CurrencyTable() {
     }
   };
 
-  const selectPage = (event) => {
-    let pageNum = event.target.innerHTML;
-
-    switch (pageNum) {
-      case "1":
-        setIndex(0);
-        break;
-      case "2":
-        setIndex(100);
-        break;
-      case "3":
-        setIndex(200);
-        break;
-      case "4":
-        setIndex(300);
-        break;
-      case "5":
-        setIndex(400);
-        break;
-    }
-
-    setPage(event.target.innerHTML);
-    setData(null);
-    getData(pageNum)
-      .then((res) => {
-        setData(res);
-      })
-      .catch((err) => alert(err));
-  };
-
-  if (data === null) return <Loader />;
-
   return (
     <div className="currency-table">
-      <div className="pages top">
-        <div className="pages-buttons">
-          <div onClick={selectPage}>
-            <button className={indexPlus === 0 ? "selected-page" : ""}>
-              1
-            </button>
-          </div>
-          <div onClick={selectPage}>
-            <button className={indexPlus === 100 ? "selected-page" : ""}>
-              2
-            </button>
-          </div>
-          <div onClick={selectPage}>
-            <button className={indexPlus === 200 ? "selected-page" : ""}>
-              3
-            </button>
-          </div>
-          <div onClick={selectPage}>
-            <button className={indexPlus === 300 ? "selected-page" : ""}>
-              4
-            </button>
-          </div>
-          <div onClick={selectPage}>
-            <button className={indexPlus === 400 ? "selected-page" : ""}>
-              5
-            </button>
-          </div>
-        </div>
-      </div>
       <table>
         <thead>
           <tr>
+            <th></th>
             <th
               onClick={() => {
                 sortHandle(0);
@@ -318,6 +232,7 @@ export default function CurrencyTable() {
           {data.map((item, index) => {
             return (
               <tr key={item.id}>
+                <td><img className ="star-img" src={require('../../stars/star.svg').default}></img></td>
                 <td className="index">{index + 1 + indexPlus}</td>
                 <td className="td-coin">
                   <Link to={`/${item.id}`}>
@@ -382,35 +297,6 @@ export default function CurrencyTable() {
           })}
         </tbody>
       </table>
-      <div className="pages bottom">
-        <div className="pages-buttons">
-          <div onClick={selectPage}>
-            <button className={indexPlus === 0 ? "selected-page" : ""}>
-              1
-            </button>
-          </div>
-          <div onClick={selectPage}>
-            <button className={indexPlus === 100 ? "selected-page" : ""}>
-              2
-            </button>
-          </div>
-          <div onClick={selectPage}>
-            <button className={indexPlus === 200 ? "selected-page" : ""}>
-              3
-            </button>
-          </div>
-          <div onClick={selectPage}>
-            <button className={indexPlus === 300 ? "selected-page" : ""}>
-              4
-            </button>
-          </div>
-          <div onClick={selectPage}>
-            <button className={indexPlus === 400 ? "selected-page" : ""}>
-              5
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

@@ -15,11 +15,10 @@
 }
 
 .result {
+    margin: 10px 0px 5px 20px;
     display: flex;
     width: 90%;
-    margin-left: 20px;
     justify-content: space-between;
-    margin-bottom: 5px;
 }
 
 .result-img {
