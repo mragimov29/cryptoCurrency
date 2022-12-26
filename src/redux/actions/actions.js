@@ -24,3 +24,14 @@ export function removeFromFavorites(id) {
     },
   };
 }
+
+export function changePrice(id, price, buyOrSell) {
+  return {
+    type: "CHANGE_PRICE",
+    payload: {
+      id: id,
+      price: price,
+      buyOrSell: buyOrSell
+    },
+  };
+}

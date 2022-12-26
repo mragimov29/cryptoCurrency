@@ -27,7 +27,7 @@ function CurrencyTable({ data, indexPlus, value, addToFavorites, favorites }) {
       )
         .then((res) => res.json())
         .then((data) => {
-          addToFavorites({data: data, count: 0});
+          addToFavorites({data: data, count: 0, price: 0});
         });
     }
   };

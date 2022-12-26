@@ -25,11 +25,12 @@ function Favorites({ favorites }) {
               className="favorites-star"
               src={require("../../stars/golden_star.svg").default}
             ></img>
-            <div className="favorites-info-li">
+            <div className="favorites-info-li"> 
               <img className="favorites-img" src={data.data.image.small}></img>
               <p>{data.data.name}</p>
               <p>({data.data.symbol.toUpperCase()})</p>
               <p>{data.count}</p>
+              <p>${data.price.toFixed(1)}</p>
             </div>
           </div>
         );

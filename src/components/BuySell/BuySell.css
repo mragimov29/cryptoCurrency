@@ -5,15 +5,42 @@
     padding: 15px;
     min-height: 400px;
     max-height: 400px;
-    padding-left: 55px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .buy-sell-select, .coins-count-input, .coins-price {
     font-size: 25px;
-    max-width: 250px;
+    width: 250px;
 }
 
 .coins-price {
     outline: none;
     border: none;
+}
+
+.b-or-s-select {
+    font-size: 25px;
+    width: 250px;
+    margin-bottom: -20px;
+}
+
+.b-s-button {
+    width: 200px;
+    height: 40px;
+    margin-top: 15px;
+    font-size: 25px;
+    border-radius: 15px;
+    border: none;
+    background-color: #0066FE;
+    color: whitesmoke;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
 }
