@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { connect } from "react-redux";
 import { changePrice } from "../../redux/actions/actions";
 import "./BuySell.css";
@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => ({
   changePrice: (data) => dispatch(changePrice(data)),
 });
 
-function BuySell({ favorites, changePrice }) {
+function BuySell({ favorites }) {
   const [count, setCount] = useState(1);
   const [id, setId] = useState(favorites[0].data.id);
   const [selectBS, setSelectBS] = useState("Buy");

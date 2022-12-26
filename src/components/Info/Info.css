@@ -64,3 +64,8 @@
     border-radius: 10px;
     margin-bottom: 10px;
 }
+
+.add-info-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

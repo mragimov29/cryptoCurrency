@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import Converter from "../Converter/Converter";
 import InfoSchedule from "../InfoSchedule/InfoSchedule";
+import { addToFavorites } from "../../redux/actions/actions";
 import Loader from "../Loader/Loader";
 import "./Info.css";
 
@@ -12,10 +13,14 @@ const mapStateToProps = (state) => {
     favorites: state.favorites,
   };
 };
-function Info({ favorites }) {
+
+const mapDispatchToProps = (dispatch) => ({
+  addToFavorites: (data) => dispatch(addToFavorites(data)),
+});
+
+function Info({ favorites, addToFavorites, value }) {
   const params = useParams();
   const [data, setData] = useState(null);
-  const [oldParams, setOldParams] = useState(params);
 
   const getData = async () => {
     let response = await fetch(
@@ -34,6 +39,21 @@ function Info({ favorites }) {
       })
       .catch((err) => alert(err));
   }, [params.id]);
+
+  const addToFavoritesHandler = (id) => {
+    if (!value) alert("You are not signed in");
+    else {
+      fetch(
+        `https://api.coingecko.com/api/v3/coins/${[
+          id,
+        ]}?localization=false&tickers=true&market_data=true&community_data=false&developer_data=false&sparkline=true`
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          addToFavorites({ data: data, count: 0, price: 0 });
+        });
+    }
+  };
 
   if (data === null) return <Loader />;
 
@@ -64,6 +84,9 @@ function Info({ favorites }) {
               disabled={
                 favorites.find((el) => el.data.id === data.id) ? true : false
               }
+              onClick={() => {
+                addToFavoritesHandler(data.id);
+              }}
             >
               Add to Favorites
             </button>
@@ -103,4 +126,4 @@ function Info({ favorites }) {
   );
 }
 
-export default connect(mapStateToProps)(Info);
+export default connect(mapStateToProps, mapDispatchToProps)(Info);
