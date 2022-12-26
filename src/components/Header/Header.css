@@ -38,3 +38,41 @@
     border-radius: 5px;
     font-size: 17px;
 }
+
+.ser-sig-but {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+}
+.header-button-menu {
+    display: none;
+}
+
+
+@media screen and (max-width: 900px) {
+    .header-pages, .head-but-sign {
+        display: none;
+    }
+    .ser-sig-but {
+        width: 90%;
+    }
+    .header-button-menu {
+        display: block;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .header-interactive {
+        width: 100%;
+    }
+    .header {
+        flex-direction: column;
+    }
+    .ser-sig-but {
+        margin-left: 40px;
+        width: 90%;
+    }
+    .header-button-menu {
+        width: 20%;
+    }
+}

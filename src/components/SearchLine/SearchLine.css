@@ -5,7 +5,7 @@
 
 .search-line-input {
     font-size: 20px;
-    width: 100%;
+    width: 120%;
     outline: none;
     padding: 5px 0px 5px 10px;
 }
@@ -16,4 +16,11 @@
     color: #FFEEDB;
     border: none;
     background-color: #1C1D21;
+}
+
+@media screen and (max-width: 900px) {
+    .search-line {
+        width: 70%;
+        margin-bottom: 10px;
+    }
 }

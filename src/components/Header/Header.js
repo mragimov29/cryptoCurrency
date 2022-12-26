@@ -1,11 +1,11 @@
-import { signInWithPopup } from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { auth, provider } from "../..";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import SearchLine from "../SearchLine/SearchLine";
 import { connect } from "react-redux";
 import { setAcc } from "../../redux/actions/actions";
 import "./Header.css";
+import MobileMenu from "../MobileMenu/MobileMenu";
+import SignInButton from "../SingInButton/SignInButton";
 
 const mapStateToProps = (state) => {
   return {
@@ -13,31 +13,21 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  setAcc: (value) => dispatch(setAcc(value)),
-});
-
-function Header({ value, setAcc }) {
-  const navigate = useNavigate();
-
-  const handleClick = () => {
-    if (value) {
-      localStorage.clear();
-      navigate("/");
-      window.location.reload();
-    } else {
-      signInWithPopup(auth, provider).then((data) => {
-        setAcc(data.user.email);
-        console.log(data.user);
-        localStorage.setItem("email", data.user.email);
-        localStorage.setItem("photo", data.user.photoURL);
-        localStorage.setItem("name", data.user.displayName);
-      });
-    }
-  };
-
+function Header({ value }) {
   const alertClick = () => {
     alert("You are not signed in");
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", (e) => {
+      if (e.target.innerWidth > 900)
+        document.querySelector(".mobile-menu").style.display = "none";
+    });
+  });
+  const openMenu = () => {
+    if (document.querySelector(".mobile-menu").style.display === "none")
+      document.querySelector(".mobile-menu").style.display = "flex";
+    else document.querySelector(".mobile-menu").style.display = "none";
   };
 
   return (
@@ -62,13 +52,19 @@ function Header({ value, setAcc }) {
             </button>
           )}
         </div>
-        <SearchLine />
-        <button className="header-button sing-in" onClick={handleClick}>
-          {value ? "Log out" : "Sign In"}
+        <div className="ser-sig-but">
+          <SearchLine />
+          <div className="head-but-sign">
+            <SignInButton />
+          </div>
+        </div>
+        <button className="header-button header-button-menu" onClick={openMenu}>
+          | | |
         </button>
       </div>
+      <MobileMenu />
     </header>
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(mapStateToProps)(Header);
