@@ -68,7 +68,9 @@ function Info({ favorites, addToFavorites, value }) {
             <h2>({data.symbol.toUpperCase()})</h2>
           </div>
           <div className="price">
-            <h3>${data.market_data.current_price.usd}</h3>
+            <h3 className="current-price-info">
+              ${data.market_data.current_price.usd}
+            </h3>
             <h3
               className={
                 data.market_data.price_change_percentage_24h > 0
@@ -96,24 +98,26 @@ function Info({ favorites, addToFavorites, value }) {
             dangerouslySetInnerHTML={{ __html: data.description.en }}
           ></div>
         </div>
-
         <div className="links">
-          <h2>Links</h2>
-          <a href={data.links.homepage[0]}>
-            <button className="info-link-bat">Homepage</button>
-          </a>
-          <a href={`https://www.facebook.com/${data.links.facebook_username}/`}>
-            <button className="info-link-bat">Facebook</button>
-          </a>
-          <a href={data.links.subreddit_url}>
-            <button className="info-link-bat">Reddit</button>
-          </a>
-          <a href={`https://twitter.com/${data.links.twitter_screen_name}`}>
-            <button className="info-link-bat">Twitter</button>
-          </a>
-          <a href={data.links.repos_url.github[0]}>
-            <button className="info-link-bat">GitHub</button>
-          </a>
+          <div className="only-links">
+            <a href={data.links.homepage[0]}>
+              <button className="info-link-bat">Homepage</button>
+            </a>
+            <a
+              href={`https://www.facebook.com/${data.links.facebook_username}/`}
+            >
+              <button className="info-link-bat">Facebook</button>
+            </a>
+            <a href={data.links.subreddit_url}>
+              <button className="info-link-bat">Reddit</button>
+            </a>
+            <a href={`https://twitter.com/${data.links.twitter_screen_name}`}>
+              <button className="info-link-bat">Twitter</button>
+            </a>
+            <a href={data.links.repos_url.github[0]}>
+              <button className="info-link-bat">GitHub</button>
+            </a>
+          </div>
           <Converter symbol={data.symbol.toUpperCase()} id={params.id} />
         </div>
       </div>
