@@ -25,13 +25,13 @@ export function removeFromFavorites(id) {
   };
 }
 
-export function changePrice(id, price, buyOrSell) {
+export function changePriceAndCount(id, price, count) {
   return {
-    type: "CHANGE_PRICE",
+    type: "CHANGE_PRICE_AND_COUNT",
     payload: {
       id: id,
       price: price,
-      buyOrSell: buyOrSell,
+      count: count,
     },
   };
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { connect } from "react-redux";
-import { changePrice } from "../../redux/actions/actions";
+import { changePriceAndCount } from "../../redux/actions/actions";
 import "./BuySell.css";
 
 const mapStateToProps = (state) => {
@@ -10,10 +10,10 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  changePrice: (data) => dispatch(changePrice(data)),
+  changePriceAndCount: (id, price, count) => dispatch(changePriceAndCount(id, price, count)),
 });
 
-function BuySell({ favorites }) {
+function BuySell({ favorites , changePriceAndCount }) {
   const [count, setCount] = useState(1);
   const [id, setId] = useState(favorites[0].data.id);
   const [selectBS, setSelectBS] = useState("Buy");
@@ -31,21 +31,25 @@ function BuySell({ favorites }) {
   };
 
   const buyOrSellClick = () => {
+    let cnt, prc;
     if (selectBS === "Buy") {
-      favorites.find((e) => e.data.id === id).price += Number(
+      prc = favorites.find((e) => e.data.id === id).price + Number(
         document.querySelector(".coins-price").value.substring(1)
       );
-      favorites.find((e) => e.data.id === id).count += Number(count);
+      cnt = favorites.find((e) => e.data.id === id).count + Number(count);
     } else if (selectBS === "Sell") {
       if (favorites.find((e) => e.data.id === id).count === 0) alert("You can't sell more than you have");
       else if (favorites.find((e) => e.data.id === id).count < count) alert("You can't sell more than you have");
       else {
-        favorites.find((e) => e.data.id === id).price -= Number(
+        prc = favorites.find((e) => e.data.id === id).price - Number(
           document.querySelector(".coins-price").value.substring(1)
         );
-        favorites.find((e) => e.data.id === id).count -= Number(count);
+        cnt = favorites.find((e) => e.data.id === id).count - Number(count);
       }
     }
+
+    changePriceAndCount(id, prc, cnt)
+
   };
 
   if (!favorites) return true;
@@ -61,7 +65,7 @@ function BuySell({ favorites }) {
       <select value={id} onChange={selectCoin} className="buy-sell-select">
         {favorites.map((data) => {
           return (
-            <option value={data.data.id}>
+            <option value={data.data.id} key={data.data.id}>
               <p>{data.data.name}</p>
               <p>({data.data.symbol.toUpperCase()})</p>
             </option>
@@ -82,7 +86,7 @@ function BuySell({ favorites }) {
             .usd * count
         ).toFixed(2)}`}
         className={selectBS === "Buy" ? "coins-price green" : "coins-price red"}
-        readOnly="true"
+        readOnly={true}
       ></input>
       <button onClick={buyOrSellClick} className="b-s-button">
         {selectBS}

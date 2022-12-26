@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { removeFromFavorites } from "../../redux/actions/actions";
 import "./Favorites.css";
 
@@ -9,11 +10,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  removeFromFavorites: (id) => dispatch(removeFromFavorites(id)),
-});
-
-function Favorites({ favorites, removeFromFavorites }) {
+function Favorites({ favorites }) {
   useEffect(() => {
     if (favorites.length > 8)
       document.querySelector(".favorites").style.overflowY = "scroll";
@@ -21,26 +18,17 @@ function Favorites({ favorites, removeFromFavorites }) {
       document.querySelector(".favorites").style.overflowY = "scroll";
   });
 
-  const removeClick = (id) => {
-    removeFromFavorites(id);
-  };
-
-  if (!favorites) return <>NO!</>;
+  if (!favorites) return true;
 
   return (
     <div className="favorites">
       {favorites.map((data) => {
         return (
-          <div className="favorites-li">
-            <img
-              className="favorites-star"
-              src={require("../../stars/golden_star.svg").default}
-              onClick={() => {
-                removeClick(data.data.id);
-              }}
-            ></img>
+          <div className="favorites-li" key={data.data.id}>
             <div className="favorites-info-li">
-              <img className="favorites-img" src={data.data.image.small}></img>
+              <Link to={`/${data.data.id}`}>
+                <img className="favorites-img" src={data.data.image.small}></img>
+              </Link>
               <div className="favorites-name-symbol">
                 <p>{data.data.name}</p>
                 <p>({data.data.symbol.toUpperCase()})</p>
@@ -57,4 +45,4 @@ function Favorites({ favorites, removeFromFavorites }) {
   );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Favorites);
+export default connect(mapStateToProps)(Favorites);

@@ -13,7 +13,6 @@ const mapStateToProps = (state) => {
 };
 
 function ProfilePage({ favorites }) {
-  console.log(favorites);
   if (favorites.length === 0) {
     return (
       <>
