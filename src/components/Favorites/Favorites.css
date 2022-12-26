@@ -17,13 +17,39 @@
     max-height: 400px;
 }
 
-.favorites-li,.favorites-info-li {
+.favorites-li,.favorites-info-li, .favorites-count-price, .favorites-name-symbol {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
 
+.favorites-count-price, .favorites-name-symbol {
+    width: 30%;
+}
+
 .favorites-info-li {
     width: 90%;
+}
+
+@media screen and (max-width: 1264px) {
+    .favorites {
+        width: 100%;
+        margin-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 560px) {
+    .favorites {
+        width: 550px;
+        margin-bottom: 30px;
+    }
+
+    .favorites-info-li {
+        flex-direction: column;
+    }
+    
+    .favorites-count-price, .favorites-name-symbol {
+        width: 80%;
+    }
 }

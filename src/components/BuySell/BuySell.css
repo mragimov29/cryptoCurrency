@@ -44,3 +44,32 @@
 .red {
     color: red;
 }
+
+@media screen and (max-width: 1100px) {
+    .buy-sell {
+        width: 90%;
+    }
+}
+
+
+@media screen and (max-width: 550px) {
+    .buy-sell {
+        min-height: 350px;
+        max-height: 350px;
+    }
+
+    .buy-sell {
+        width: 100%;
+    }
+
+    .buy-sell-select, .coins-count-input, .coins-price,  .b-or-s-select  {
+        font-size: 17px;
+        width: 170px;
+    }
+
+    .b-s-button {
+        width: 150px;
+        height: 40px;
+        font-size: 17px;
+    }
+}
