@@ -64,3 +64,10 @@ td {
   height: 25px;
   cursor: pointer;
 }
+
+@media screen and (max-width: 1170px) {
+  .currency-table {
+    width: 90%;
+    overflow-x: scroll;
+  }
+}
