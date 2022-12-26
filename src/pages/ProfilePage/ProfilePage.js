@@ -1,6 +1,7 @@
 import BuySell from "../../components/BuySell/BuySell";
 import Favorites from "../../components/Favorites/Favorites";
 import Header from "../../components/Header/Header";
+import ProfileChart from "../../components/ProfileChart/ProfileChart";
 import "./ProfilePage.css";
 
 export default function ProfilePage() {
@@ -19,7 +20,7 @@ export default function ProfilePage() {
         <h2 className="favorite-h2">Favorite coins</h2>
         <div className="profile-f-d-b-s">
         <Favorites />
-
+        <ProfileChart />
         <BuySell />
         </div>
       </div>

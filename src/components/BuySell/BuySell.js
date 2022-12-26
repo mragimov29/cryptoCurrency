@@ -35,14 +35,15 @@ function BuySell({ favorites, changePrice }) {
       favorites.find((e) => e.data.id === id).price += Number(
         document.querySelector(".coins-price").value.substring(1)
       );
-      favorites.find((e) => e.data.id === id).count += count;
+      favorites.find((e) => e.data.id === id).count += Number(count);
     } else if (selectBS === "Sell") {
-      if (favorites.find((e) => e.data.id === id).count === 0) alert("AAAAAAAAAAAAAAAAAAAAAA!");
+      if (favorites.find((e) => e.data.id === id).count === 0) alert("You can't sell more than you have");
+      else if (favorites.find((e) => e.data.id === id).count < count) alert("You can't sell more than you have");
       else {
         favorites.find((e) => e.data.id === id).price -= Number(
           document.querySelector(".coins-price").value.substring(1)
         );
-        favorites.find((e) => e.data.id === id).count -= count;
+        favorites.find((e) => e.data.id === id).count -= Number(count);
       }
     }
   };
