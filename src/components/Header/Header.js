@@ -1,6 +1,6 @@
 import { signInWithPopup } from "firebase/auth";
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, provider } from "../..";
 import SearchLine from "../SearchLine/SearchLine";
 import { connect } from "react-redux";
@@ -18,9 +18,12 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 function Header({ value, setAcc }) {
+  const navigate = useNavigate();
+
   const handleClick = () => {
     if (value) {
       localStorage.clear();
+      navigate("/");
       window.location.reload();
     } else {
       signInWithPopup(auth, provider).then((data) => {
