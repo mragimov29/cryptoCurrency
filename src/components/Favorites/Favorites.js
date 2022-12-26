@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { connect } from "react-redux";
+import { removeFromFavorites } from "../../redux/actions/actions";
 import "./Favorites.css";
 
 const mapStateToProps = (state) => {
@@ -8,13 +9,21 @@ const mapStateToProps = (state) => {
   };
 };
 
-function Favorites({ favorites }) {
+const mapDispatchToProps = (dispatch) => ({
+  removeFromFavorites: (id) => dispatch(removeFromFavorites(id)),
+});
+
+function Favorites({ favorites, removeFromFavorites }) {
   useEffect(() => {
     if (favorites.length > 8)
       document.querySelector(".favorites").style.overflowY = "scroll";
-    if (favorites.length > 2  && window.innerWidth <= 550)
+    if (favorites.length > 2 && window.innerWidth <= 550)
       document.querySelector(".favorites").style.overflowY = "scroll";
   });
+
+  const removeClick = (id) => {
+    removeFromFavorites(id);
+  };
 
   if (!favorites) return <>NO!</>;
 
@@ -26,6 +35,9 @@ function Favorites({ favorites }) {
             <img
               className="favorites-star"
               src={require("../../stars/golden_star.svg").default}
+              onClick={() => {
+                removeClick(data.data.id);
+              }}
             ></img>
             <div className="favorites-info-li">
               <img className="favorites-img" src={data.data.image.small}></img>
@@ -45,4 +57,4 @@ function Favorites({ favorites }) {
   );
 }
 
-export default connect(mapStateToProps)(Favorites);
+export default connect(mapStateToProps, mapDispatchToProps)(Favorites);

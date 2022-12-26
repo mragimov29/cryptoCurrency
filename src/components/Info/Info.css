@@ -19,10 +19,11 @@
 
 .add-info-button {
     background-color: #0066FE;
-    font-size: 15px;
-    height: 55px;
+    font-size: 20px;
+    height: 50px;
     border-radius: 10px;
     border: none;
+    width: 100px;
 }
 
 .rank {
@@ -68,8 +69,8 @@
     margin-bottom: 10px;
 }
 
-.add-info-button:disabled {
-    cursor: not-allowed;
+.remove {
+    background-color: red;
 }
 
 @media screen and (max-width: 1200px) {

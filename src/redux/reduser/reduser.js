@@ -18,16 +18,20 @@ export default function reducer(state = initialState, action) {
         ...state,
         value: action.payload.value,
       };
-    case "CHANGE_PRICE":
-      // if(action.payload.buyOrSell === "Buy") {
-      //   // favorites.find((e) => e.data.id === action.payload.id).price += action.payload.id;
-      //   favorites = [...state.favorites, favorites.find((e) => e.data.id === action.payload.id).price += action.payload.id]
-      // }
-      // console.log(favorites);
-      // return {
-      //   ...state,
-      //   favorites,
-      // };
+    case "REMOVE_FROM_FAVORITES":
+      favorites = [...state.favorites];
+
+      let find = state.favorites.find(
+        (item) => item.data.id === action.payload.id
+      );
+
+      let index = state.favorites.indexOf(find);
+      favorites.splice(index, 1);
+
+      return {
+        ...state,
+        favorites,
+      };
     default:
       return initialState;
   }

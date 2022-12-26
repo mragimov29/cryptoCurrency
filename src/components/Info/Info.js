@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import Converter from "../Converter/Converter";
 import InfoSchedule from "../InfoSchedule/InfoSchedule";
-import { addToFavorites } from "../../redux/actions/actions";
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../../redux/actions/actions";
 import Loader from "../Loader/Loader";
 import "./Info.css";
 
@@ -16,9 +19,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   addToFavorites: (data) => dispatch(addToFavorites(data)),
+  removeFromFavorites: (id) => dispatch(removeFromFavorites(id)),
 });
 
-function Info({ favorites, addToFavorites, value }) {
+function Info({ favorites, addToFavorites, value, removeFromFavorites }) {
   const params = useParams();
   const [data, setData] = useState(null);
 
@@ -82,15 +86,20 @@ function Info({ favorites, addToFavorites, value }) {
               {data.market_data.price_change_percentage_24h.toFixed(1)}
             </h3>
             <button
-              className="add-info-button"
-              disabled={
-                favorites.find((el) => el.data.id === data.id) ? true : false
+              className={
+                favorites.find((el) => el.data.id === data.id)
+                  ? "add-info-button remove"
+                  : "add-info-button"
               }
               onClick={() => {
-                addToFavoritesHandler(data.id);
+                favorites.find((el) => el.data.id === data.id)
+                  ? removeFromFavorites(data.id)
+                  : addToFavoritesHandler(data.id);
               }}
             >
-              Add to Favorites
+              {favorites.find((el) => el.data.id === data.id)
+                ? "Remove"
+                : "Add"}
             </button>
           </div>
           <div

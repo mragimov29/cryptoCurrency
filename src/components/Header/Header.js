@@ -24,6 +24,7 @@ function Header({ value }) {
         document.querySelector(".mobile-menu").style.display = "none";
     });
   });
+  
   const openMenu = () => {
     if (document.querySelector(".mobile-menu").style.display === "none")
       document.querySelector(".mobile-menu").style.display = "flex";

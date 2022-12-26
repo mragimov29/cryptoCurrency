@@ -31,7 +31,7 @@ export function changePrice(id, price, buyOrSell) {
     payload: {
       id: id,
       price: price,
-      buyOrSell: buyOrSell
+      buyOrSell: buyOrSell,
     },
   };
 }
