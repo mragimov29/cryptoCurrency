@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-import { connect, Provider } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import InfoPage from "./pages/InfoPage/InfoPage";
@@ -7,21 +5,9 @@ import MainPage from "./pages/MainPage/MainPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import { initFavorites } from "./redux/actions/actions";
 
-const mapDispatchToProps = (dispatch) => ({
-  initFavorites: (data) => dispatch(initFavorites(data)),
-});
 
-function App({ initFavorites }) {
-  useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((res) => {
-        initFavorites(res.favorites);
-      });
-  }, []);
-
+function App() {
   return (
-    
       <div className="App">
         <Routes>
           <Route path="/" element={<MainPage />}></Route>
@@ -32,4 +18,4 @@ function App({ initFavorites }) {
   );
 }
 
-export default connect(null, mapDispatchToProps)(App);
+export default App;

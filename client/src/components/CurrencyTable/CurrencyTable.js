@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import TableSchedule from "../TableSchedule/TableSchedule";
 import "./CurrencyTable.css";
 import { connect } from "react-redux";
-import { addToFavorites, removeFromFavorites } from "../../redux/actions/actions";
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from "../../redux/actions/actions";
 
 const mapStateToProps = (state) => {
   return {
@@ -17,7 +20,14 @@ const mapDispatchToProps = (dispatch) => ({
   removeFromFavorites: (id) => dispatch(removeFromFavorites(id)),
 });
 
-function CurrencyTable({ data, indexPlus, value, addToFavorites, favorites, removeFromFavorites }) {
+function CurrencyTable({
+  data,
+  indexPlus,
+  value,
+  addToFavorites,
+  favorites,
+  removeFromFavorites,
+}) {
   const addToFavClick = (id) => {
     if (!value) alert("You are not signed in");
     else {
@@ -28,7 +38,7 @@ function CurrencyTable({ data, indexPlus, value, addToFavorites, favorites, remo
       )
         .then((res) => res.json())
         .then((data) => {
-          addToFavorites({data: data, count: 0, price: 0});
+          addToFavorites({ id: id, data: data, count: 0, price: 0 });
         });
     }
   };
@@ -56,8 +66,10 @@ function CurrencyTable({ data, indexPlus, value, addToFavorites, favorites, remo
               <tr key={item.id}>
                 <td>
                   <img
-                    onClick={() => { favorites.find((el) => el.data.id === item.id) ?
-                      removeFromFavorites(item.id) : addToFavClick(item.id)
+                    onClick={() => {
+                      favorites.find((el) => el.data.id === item.id)
+                        ? removeFromFavorites(item.id)
+                        : addToFavClick(item.id);
                     }}
                     className="star-img"
                     src={

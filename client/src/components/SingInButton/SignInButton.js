@@ -2,7 +2,7 @@ import { signInWithPopup } from "firebase/auth";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "../..";
-import { setAcc } from "../../redux/actions/actions";
+import { initFavorites, setAcc } from "../../redux/actions/actions";
 
 const mapStateToProps = (state) => {
   return {
@@ -12,9 +12,10 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   setAcc: (value) => dispatch(setAcc(value)),
+  initFavorites: data => dispatch(initFavorites(data)),
 });
 
-function SignInButton({ value, setAcc }) {
+function SignInButton({ value, setAcc, initFavorites }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -29,6 +30,11 @@ function SignInButton({ value, setAcc }) {
         localStorage.setItem("email", data.user.email);
         localStorage.setItem("photo", data.user.photoURL);
         localStorage.setItem("name", data.user.displayName);
+        fetch(`/api/${data.user.email}`)
+          .then((res) => res.json())
+          .then((data) => {
+            initFavorites(data);
+          });
       });
     }
   };
