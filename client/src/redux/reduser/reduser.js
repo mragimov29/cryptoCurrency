@@ -79,6 +79,14 @@ export default function reducer(state = initialState, action) {
       favorites.find((item) => item.data.id === action.payload.id).price =
         action.payload.price;
 
+      fetch(`/api/change/${state.value}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(favorites),
+      });
+
       return {
         ...state,
         favorites,
