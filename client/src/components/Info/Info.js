@@ -54,7 +54,7 @@ function Info({ favorites, addToFavorites, value, removeFromFavorites }) {
       )
         .then((res) => res.json())
         .then((data) => {
-          addToFavorites({ id: id, data: data, count: 0, price: 0 });
+          addToFavorites({ data: data, count: 0, price: 0 });
         });
     }
   };

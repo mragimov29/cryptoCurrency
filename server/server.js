@@ -1,8 +1,11 @@
 const express = require("express");
 const fs = require("fs");
+const bp = require("body-parser");
 
 const app = express();
-favorites = [];
+
+app.use(bp.json())
+app.use(bp.urlencoded({ extended: true, limit: '50mb', }))
 
 app.get(`/api/:id`, (req, res) => {
   fs.readFile("./data.json", "utf8", (err, data) => {
@@ -21,7 +24,19 @@ app.get(`/api/:id`, (req, res) => {
 });
 
 app.put(`/api/change/:id`, function (req, res) {
-  // res.json({favorites: req.body});
+  console.log(req.body);
+  fs.readFile("./data.json", "utf8", (err, data) => {
+    if (!err) {
+      const x = JSON.parse(data);
+
+      x[`${req.params.id}`] = req.body;
+      fs.writeFileSync("./data.json", JSON.stringify(x));
+
+      res.json(x[`${req.params.id}`]);
+    } else {
+      console.error(err);
+    }
+  });
 });
 
 app.listen(5000, () => {
