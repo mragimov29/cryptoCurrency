@@ -37,6 +37,7 @@ function BuySell({ favorites , changePriceAndCount }) {
         document.querySelector(".coins-price").value.substring(1)
       );
       cnt = favorites.find((e) => e.data.id === id).count + Number(count);
+      changePriceAndCount(id, prc, cnt)
     } else if (selectBS === "Sell") {
       if (favorites.find((e) => e.data.id === id).count === 0) alert("You can't sell more than you have");
       else if (favorites.find((e) => e.data.id === id).count < count) alert("You can't sell more than you have");
@@ -45,10 +46,10 @@ function BuySell({ favorites , changePriceAndCount }) {
           document.querySelector(".coins-price").value.substring(1)
         );
         cnt = favorites.find((e) => e.data.id === id).count - Number(count);
+        changePriceAndCount(id, prc, cnt)
       }
     }
 
-    changePriceAndCount(id, prc, cnt)
 
   };
 

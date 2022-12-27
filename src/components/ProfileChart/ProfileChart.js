@@ -13,6 +13,7 @@ const mapStateToProps = (state) => {
 
 function ProfileChart({ favorites }) {
   const [data, setData] = useState(null);
+  const [options, setOptions] = useState(null);
 
   useEffect(() => {
     let label = [],
@@ -22,20 +23,13 @@ function ProfileChart({ favorites }) {
 
     favorites.map((el) => {
       allCount += el.count;
-      console.log(el.count);
     });
-
-    console.log(allCount);
 
     favorites.map((el) => {
       label.push(el.data.name);
       percent.push(((el.count / allCount) * 100).toFixed(1));
       color.push("#" + setRandomColor());
     });
-
-    console.log(label);
-    console.log(percent);
-    console.log(color);
 
     setData({
       labels: label,
@@ -49,6 +43,13 @@ function ProfileChart({ favorites }) {
         },
       ],
     });
+    setOptions({
+      plugins: {
+        legend: {
+          display: false,
+        },
+      },
+    });
   }, [favorites]);
 
   const setRandomColor = () => {
@@ -56,10 +57,10 @@ function ProfileChart({ favorites }) {
   };
 
   if (data === null) return true;
-//   return true;  
+
   return (
     <div className="pie-chart">
-      <Pie data={data} />
+      <Pie data={data} options={options}/>
     </div>
   );
 }

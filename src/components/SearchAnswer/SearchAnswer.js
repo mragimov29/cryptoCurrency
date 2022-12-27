@@ -2,18 +2,13 @@ import { Link } from "react-router-dom";
 import "./SearchAnswer.css";
 
 export default function SearchAnswer({ search, data }) {
-//   const reloadPage = () => {
-//     setTimeout(() => { window.location.reload(); }, 200);
-//   } 
-
   if (data === null) return true;
   return (
     <div className={search ? "search-answer" : "search-none"}>
       {data.coins.map((item) => {
         return (
-          <div className="result">
+          <div className="result" key={item.id}>
             <Link
-            //  onClick={reloadPage}
              to={`/${item.id}`}>
                 <img className="result-img" src={item.thumb}></img>
             </Link>

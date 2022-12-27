@@ -23,7 +23,6 @@ ChartJS.register(
 
 export default function InfoSchedule({ price, date, symbol }) {
   const [dates, setDates] = useState([]);
-  // const [flag, setFlag] = useState(true);
   const [data, setData] = useState(null);
   const [options, setOptions] = useState(null);
 
@@ -39,7 +38,6 @@ export default function InfoSchedule({ price, date, symbol }) {
         dates.unshift(date1.toString());
       }
 
-      console.log(dates.length);
       setData({
         labels: dates,
         datasets: [

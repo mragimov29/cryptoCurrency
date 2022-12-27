@@ -14,7 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
   setAcc: (value) => dispatch(setAcc(value)),
 });
 
-function SignInButton({value, setAcc}) {
+function SignInButton({ value, setAcc }) {
   const navigate = useNavigate();
 
   const handleClick = () => {
@@ -25,7 +25,7 @@ function SignInButton({value, setAcc}) {
     } else {
       signInWithPopup(auth, provider).then((data) => {
         setAcc(data.user.email);
-        console.log(data.user);
+
         localStorage.setItem("email", data.user.email);
         localStorage.setItem("photo", data.user.photoURL);
         localStorage.setItem("name", data.user.displayName);
@@ -40,5 +40,4 @@ function SignInButton({value, setAcc}) {
   );
 }
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignInButton)
+export default connect(mapStateToProps, mapDispatchToProps)(SignInButton);

@@ -14,8 +14,10 @@ function Favorites({ favorites }) {
   useEffect(() => {
     if (favorites.length > 8)
       document.querySelector(".favorites").style.overflowY = "scroll";
-    if (favorites.length > 2 && window.innerWidth <= 550)
-      document.querySelector(".favorites").style.overflowY = "scroll";
+    window.addEventListener("resize", (e) => {
+      if (favorites.length > 2 && e.target.innerWidth <= 550)
+        document.querySelector(".favorites").style.overflowY = "scroll";
+    });
   });
 
   if (!favorites) return true;
@@ -27,7 +29,10 @@ function Favorites({ favorites }) {
           <div className="favorites-li" key={data.data.id}>
             <div className="favorites-info-li">
               <Link to={`/${data.data.id}`}>
-                <img className="favorites-img" src={data.data.image.small}></img>
+                <img
+                  className="favorites-img"
+                  src={data.data.image.small}
+                ></img>
               </Link>
               <div className="favorites-name-symbol">
                 <p>{data.data.name}</p>
