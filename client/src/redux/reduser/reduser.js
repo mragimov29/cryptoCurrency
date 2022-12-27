@@ -58,7 +58,15 @@ export default function reducer(state = initialState, action) {
 
       let index = state.favorites.indexOf(find);
       favorites.splice(index, 1);
-      
+
+      fetch(`/api/change/${state.value}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(favorites),
+      });
+
       return {
         ...state,
         favorites,
