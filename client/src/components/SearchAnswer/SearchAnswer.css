@@ -27,6 +27,12 @@
     height: 25px;
 }
 
+@media screen and (min-width: 1905px) {
+    .search-answer {
+        right: 33%;
+    }
+}
+
 @media screen and (max-width: 900px) {
     .search-answer {
         right: 30%;
