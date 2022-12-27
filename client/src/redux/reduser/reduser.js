@@ -7,6 +7,13 @@ export default function reducer(state = initialState, action) {
   let favorites = [],
     find;
   switch (action.type) {
+    case "INIT_FAVORITES":
+      favorites = action.payload.data;
+      
+      return {
+        ...state,
+        favorites,
+      };
     case "ADD_TO_FAVORITES":
       favorites = [...state.favorites, action.payload.data];
 
@@ -42,7 +49,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         favorites,
-      }
+      };
     default:
       return initialState;
   }

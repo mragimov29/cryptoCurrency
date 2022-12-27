@@ -1,26 +1,27 @@
 import { useEffect, useState } from "react";
-import { Provider } from "react-redux";
+import { connect, Provider } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import InfoPage from "./pages/InfoPage/InfoPage";
 import MainPage from "./pages/MainPage/MainPage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
-import store from "./redux/reduser/store";
+import { initFavorites } from "./redux/actions/actions";
 
-function App() {
-  const [data, setData] = useState(null)
+const mapDispatchToProps = (dispatch) => ({
+  initFavorites: (data) => dispatch(initFavorites(data)),
+});
 
+function App({ initFavorites }) {
   useEffect(() => {
-    fetch('/api')
-    .then(response => response.json())
-    .then(res => {
-      console.log(res.mes);
-      setData(res.mes)
-    });
+    fetch("/api")
+      .then((response) => response.json())
+      .then((res) => {
+        initFavorites(res.favorites);
+      });
   }, []);
 
   return (
-    <Provider store={store}>
+    
       <div className="App">
         <Routes>
           <Route path="/" element={<MainPage />}></Route>
@@ -28,8 +29,7 @@ function App() {
           <Route path="/profile" element={<ProfilePage />}></Route>
         </Routes>
       </div>
-    </Provider>
   );
 }
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);

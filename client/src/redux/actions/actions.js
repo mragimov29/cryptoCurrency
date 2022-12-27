@@ -35,3 +35,12 @@ export function changePriceAndCount(id, price, count) {
     },
   };
 }
+
+export function initFavorites(data) {
+  return {
+    type: "INIT_FAVORITES", 
+    payload: {
+      data: data,
+    }
+  }
+}

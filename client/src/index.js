@@ -4,7 +4,9 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { initializeApp } from "firebase/app";
-import {getAuth, GoogleAuthProvider} from "firebase/auth"
+import { getAuth, GoogleAuthProvider } from "firebase/auth";
+import { Provider } from "react-redux";
+import store from "./redux/reduser/store";
 
 const app = initializeApp({
   apiKey: "AIzaSyDU1JFp0KIVL7ERDp3cAqJVKmUXnYDElXo",
@@ -18,11 +20,13 @@ const app = initializeApp({
 const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
 
-export {auth, provider}
+export { auth, provider };
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>
+  <Provider store={store}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </Provider>
 );
