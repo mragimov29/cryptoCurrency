@@ -45,7 +45,7 @@ function ProfilePage({ favorites }) {
         <h2 className="favorite-h2">Favorite coins</h2>
         <div className="profile-f-d-b-s">
           <Favorites />
-          <ProfileChart />
+          {favorites[0].count === 0 ? true : <ProfileChart />}
           <BuySell />
         </div>
       </div>
