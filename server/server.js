@@ -4,8 +4,8 @@ const bp = require("body-parser");
 
 const app = express();
 
-app.use(bp.json())
-app.use(bp.urlencoded({ extended: true, limit: '50mb', }))
+app.use(bp.json());
+app.use(bp.urlencoded({ extended: true, limit: "50mb" }));
 
 app.get(`/api/:id`, (req, res) => {
   fs.readFile("./data.json", "utf8", (err, data) => {
@@ -36,6 +36,12 @@ app.put(`/api/change/:id`, function (req, res) {
     } else {
       console.error(err);
     }
+  });
+});
+
+app.get("/", function (req, res) {
+  fs.readFile("./data.json", "utf8", (err, data) => {
+    res.json(JSON.parse(data));
   });
 });
 

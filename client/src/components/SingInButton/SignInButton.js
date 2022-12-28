@@ -1,4 +1,5 @@
 import { signInWithPopup } from "firebase/auth";
+import { useEffect } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth, provider } from "../..";
@@ -12,7 +13,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => ({
   setAcc: (value) => dispatch(setAcc(value)),
-  initFavorites: data => dispatch(initFavorites(data)),
+  initFavorites: (data) => dispatch(initFavorites(data)),
 });
 
 function SignInButton({ value, setAcc, initFavorites }) {
@@ -38,6 +39,15 @@ function SignInButton({ value, setAcc, initFavorites }) {
       });
     }
   };
+
+  useEffect(() => {
+    setAcc(localStorage.getItem("email"));
+    fetch(`/api/${localStorage.getItem("email")}`)
+      .then((res) => res.json())
+      .then((data) => {
+        initFavorites(data);
+      });
+  });
 
   return (
     <button className="header-button sing-in" onClick={handleClick}>
